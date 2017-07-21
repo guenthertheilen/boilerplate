@@ -1,0 +1,4 @@
+What to do after cloning repository:
+
+1. composer install
+2. create .env.dusk.local and update APP_URL
