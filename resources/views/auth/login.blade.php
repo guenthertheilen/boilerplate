@@ -1,22 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('login') }}">
-        {{ csrf_field() }}
-        <label for="email">E-Mail Address</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-        @if ($errors->has('email'))
-            <strong>{{ $errors->first('email') }}</strong>
-        @endif
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required>
-        @if ($errors->has('password'))
-            <strong>{{ $errors->first('password') }}</strong>
-        @endif
-        <label>
-            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-        </label>
-        <button>Login</button>
-        <a href="{{ route('password.request') }}">Forgot Your Password?</a>
-    </form>
+    <div class="column is-6 is-offset-3">
+
+        <h1 class="title">Login</h1>
+
+        <form method="POST" action="{{ route('login') }}">
+            {{ csrf_field() }}
+
+            <div class="field">
+                <label for="email" class="label">E-Mail Address</label>
+                <div class="control">
+                    <input id="email"
+                           class="input @if ($errors->has('email')) is-danger @endif"
+                           type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           required
+                           autofocus>
+                </div>
+                @if ($errors->has('email'))
+                    <p class="help is-danger">{{ $errors->first('email') }}</p>
+                @endif
+            </div>
+
+            <div class="field">
+                <label for="password" class="label">Password</label>
+                <div class="control">
+                    <input id="password"
+                           class="input @if ($errors->has('password')) is-danger @endif"
+                           type="password"
+                           name="password"
+                           required>
+                </div>
+                @if ($errors->has('password'))
+                    <p class="help is-danger">{{ $errors->first('password') }}</p>
+                @endif
+            </div>
+
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                </label>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">Login</button>
+                </div>
+            </div>
+
+            <a href="{{ route('password.request') }}" class="button is-link is-small">Forgot Your Password?</a>
+        </form>
+    </div>
 @endsection
