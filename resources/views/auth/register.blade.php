@@ -1,25 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
-    <form method="POST" action="{{ route('register') }}">
-        {{ csrf_field() }}
-        <label for="name">Name</label>
-        <input id="name" name="name" value="{{ old('name') }}" required autofocus>
-        @if ($errors->has('name'))
-            <strong>{{ $errors->first('name') }}</strong>
-        @endif
-        <label for="email">E-Mail Address</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-        @if ($errors->has('email'))
-            <strong>{{ $errors->first('email') }}</strong>
-        @endif
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required>
-        @if ($errors->has('password'))
-            <strong>{{ $errors->first('password') }}</strong>
-        @endif
-        <label for="password-confirm">Confirm Password</label>
-        <input id="password-confirm" type="password" name="password_confirmation" required>
-        <button>Register</button>
-    </form>
+    <div class="column is-6 is-offset-3">
+
+        <h1 class="title">Register</h1>
+
+        <form method="POST" action="{{ route('register') }}">
+            {{ csrf_field() }}
+
+            <div class="field">
+                <label for="name" class="label">Name</label>
+                <div class="control">
+                    <input id="name"
+                           name="name"
+                           class="input @if ($errors->has('name')) is-danger @endif"
+                           value="{{ old('name') }}"
+                           required
+                           autofocus>
+                </div>
+                @if ($errors->has('name'))
+                    <p class="help is-danger">{{ $errors->first('name') }}</p>
+                @endif
+            </div>
+
+            <div class="field">
+                <label for="email" class="label">E-Mail Address</label>
+                <div class="control">
+                    <input id="email"
+                           class="input @if ($errors->has('email')) is-danger @endif"
+                           type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           required>
+                </div>
+                @if ($errors->has('email'))
+                    <p class="help is-danger">{{ $errors->first('email') }}</p>
+                @endif
+            </div>
+
+            <div class="field">
+                <label for="password" class="label">Password</label>
+                <div class="control">
+                    <input id="password"
+                           class="input @if ($errors->has('password')) is-danger @endif"
+                           type="password"
+                           name="password"
+                           required>
+                </div>
+                @if ($errors->has('password'))
+                    <p class="help is-danger">{{ $errors->first('password') }}</p>
+                @endif
+            </div>
+
+            <div class="field">
+                <label for="password-confirm" class="label">Confirm Password</label>
+                <div class="control">
+                    <input id="password-confirm"
+                           class="input"
+                           type="password"
+                           name="password_confirmation"
+                           required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
