@@ -3,13 +3,13 @@
 @section('content')
     <div class="column is-6 is-offset-3">
 
-        <h1 class="title">Register</h1>
+        <h1 class="title">@lang('Register')</h1>
 
         <form method="POST" action="{{ route('register') }}">
             {{ csrf_field() }}
 
             <div class="field">
-                <label for="name" class="label">Name</label>
+                <label for="name" class="label">@lang('Name')</label>
                 <div class="control">
                     <input id="name"
                            name="name"
@@ -24,7 +24,7 @@
             </div>
 
             <div class="field">
-                <label for="email" class="label">E-Mail Address</label>
+                <label for="email" class="label">@lang('E-Mail Address')</label>
                 <div class="control">
                     <input id="email"
                            class="input @if ($errors->has('email')) is-danger @endif"
@@ -39,7 +39,7 @@
             </div>
 
             <div class="field">
-                <label for="password" class="label">Password</label>
+                <label for="password" class="label">@lang('Password')</label>
                 <div class="control">
                     <input id="password"
                            class="input @if ($errors->has('password')) is-danger @endif"
@@ -53,7 +53,7 @@
             </div>
 
             <div class="field">
-                <label for="password-confirm" class="label">Confirm Password</label>
+                <label for="password-confirm" class="label">@lang('Confirm Password')</label>
                 <div class="control">
                     <input id="password-confirm"
                            class="input"
@@ -65,7 +65,7 @@
 
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">Register</button>
+                    <button class="button is-primary">@lang('Register')</button>
                 </div>
             </div>
         </form>

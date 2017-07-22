@@ -3,7 +3,7 @@
 @section('content')
     <div class="column is-6 is-offset-3">
 
-        <h1 class="title">Reset Password</h1>
+        <h1 class="title">@lang('Reset Password')</h1>
 
         @if (session('status'))
             {{ session('status') }}
@@ -14,7 +14,7 @@
             <input type="hidden" name="token" value="{{ $token }}">
 
             <div class="field">
-                <label for="email" class="label">E-Mail Address</label>
+                <label for="email" class="label">@lang('E-Mail Address')</label>
                 <div class="control">
                     <input id="email"
                            class="input @if ($errors->has('email')) is-danger @endif"
@@ -30,7 +30,7 @@
             </div>
 
             <div class="field">
-                <label for="password" class="label">Password</label>
+                <label for="password" class="label">@lang('Password')</label>
                 <div class="control">
                     <input id="password"
                            class="input @if ($errors->has('password')) is-danger @endif"
@@ -44,7 +44,7 @@
             </div>
 
             <div class="field">
-                <label for="password-confirm" class="label">Confirm Password</label>
+                <label for="password-confirm" class="label">@lang('Confirm Password')</label>
                 <div class="control">
                     <input id="password-confirm"
                            class="input @if ($errors->has('password_confirmation')) is-danger @endif"
@@ -59,7 +59,7 @@
 
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">Reset Password</button>
+                    <button class="button is-primary">@lang('Save New Password')</button>
                 </div>
             </div>
         </form>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="column is-6 is-offset-3">
 
-        <h1 class="title">Reset Password</h1>
+        <h1 class="title">@lang('Reset Password')</h1>
 
         @if (session('status'))
             {{ session('status') }}
@@ -13,7 +13,7 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <label for="email" class="label">E-Mail Address</label>
+                <label for="email" class="label">@lang('E-Mail Address')</label>
                 <div class="control">
                     <input id="email"
                            class="input @if ($errors->has('email')) is-danger @endif"
@@ -29,7 +29,7 @@
 
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">Send Password Reset Link</button>
+                    <button class="button is-primary">@lang('Send Password Reset Link')</button>
                 </div>
             </div>
         </form>
