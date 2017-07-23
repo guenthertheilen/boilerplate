@@ -66,12 +66,43 @@ class UserRegistrationTest extends TestCase
     }
 
     /** @test */
+    function it_does_not_register_user_with_invalid_email()
+    {
+        $this->post(route('register'), [
+            'name' => 'John Doe',
+            'email' => 'not-an-email',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'John Doe'
+        ]);
+    }
+
+
+    /** @test */
     function it_does_not_register_user_without_password()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
             'password_confirmation' => 'secret'
+        ]);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'John Doe'
+        ]);
+    }
+
+    /** @test */
+    function it_does_not_register_user_with_too_short_password()
+    {
+        $this->post(route('register'), [
+            'name' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'short',
+            'password_confirmation' => 'short'
         ]);
 
         $this->assertDatabaseMissing('users', [
