@@ -25,7 +25,8 @@ class LoginTest extends DuskTestCase
     function it_shows_login_page_if_guest_tries_to_access_homepage()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->logout()
+                ->visit('/')
                 ->assertPathIs(route('login', [], false));
         });
     }
@@ -34,8 +35,8 @@ class LoginTest extends DuskTestCase
     function it_logs_in_visitor_with_valid_credentials()
     {
         $this->browse(function (Browser $browser) {
-            $browser->logout();
-            $browser->visit('/')
+            $browser->logout()
+                ->visit('/')
                 ->type('email', 'abc@example.com')
                 ->type('password', '123456')
                 ->press(__('Login'))
@@ -47,8 +48,8 @@ class LoginTest extends DuskTestCase
     function it_does_not_log_in_visitor_with_invalid_credentials()
     {
         $this->browse(function (Browser $browser) {
-            $browser->logout();
-            $browser->visit('/')
+            $browser->logout()
+                ->visit('/')
                 ->type('email', 'INVALID@example.com')
                 ->type('password', '123456')
                 ->press(__('Login'))
