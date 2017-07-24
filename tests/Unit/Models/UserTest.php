@@ -12,14 +12,6 @@ class UserTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function a_user_has_roles()
-    {
-        $user = new User();
-
-        $user->roles();
-    }
-
-    /** @test */
     function it_attaches_role_to_user()
     {
         $user = factory(User::class)->create();
@@ -58,5 +50,18 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->hasRole($role1));
         $this->assertFalse($user->hasRole($role2));
+    }
+
+    /** @test */
+    function it_checks_if_user_has_given_role_by_name_of_role()
+    {
+        $user = factory(User::class)->create();
+        $role1 = factory(Role::class)->create(['name' => 'foo']);
+        factory(Role::class)->create(['name' => 'bar']);
+
+        $user->attachRole($role1);
+
+        $this->assertTrue($user->hasRole('foo'));
+        $this->assertFalse($user->hasRole('bar'));
     }
 }

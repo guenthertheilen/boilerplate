@@ -66,6 +66,20 @@ class User extends Authenticatable
      */
     public function hasRole($role)
     {
+        if (is_string($role)) {
+            return $this->hasRoleByName($role);
+        }
         return in_array($role->id, $this->roles->pluck('id')->toArray());
+    }
+
+    /**
+     * Check if User has role with given name.
+     *
+     * @param $role
+     * @return bool
+     */
+    private function hasRoleByName($role)
+    {
+        return in_array($role, $this->roles->pluck('name')->toArray());
     }
 }

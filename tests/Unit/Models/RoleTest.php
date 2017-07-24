@@ -3,15 +3,19 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Role;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class RoleTest extends TestCase
 {
-    /** @test */
-    function a_role_has_users()
-    {
-        $role = new Role();
+    use DatabaseMigrations;
 
-        $role->users();
+    /** @test */
+    function it_has_users()
+    {
+        $role = factory(Role::class)->create();
+
+        $role->users;
+
     }
 }
