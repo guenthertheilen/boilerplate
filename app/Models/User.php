@@ -37,4 +37,24 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Attach Role to User.
+     *
+     * @param Role $role
+     */
+    public function attachRole($role)
+    {
+        $this->roles()->attach($role->id);
+    }
+
+    /**
+     * Detach Role from User.
+     *
+     * @param $role
+     */
+    public function detachRole($role)
+    {
+        $this->roles()->detach($role->id);
+    }
 }
