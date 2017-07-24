@@ -160,4 +160,19 @@ class UserRegistrationTest extends TestCase
             'email' => 'foo@bar.com',
         ]);
     }
+
+    /** @test */
+    function it_attaches_default_role_to_new_user()
+    {
+        $this->post(route('register'), [
+            'name' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $user = User::whereName('John Doe')->first();
+
+        $this->assertTrue($user->hasRole('user'));
+    }
 }

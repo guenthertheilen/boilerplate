@@ -24,4 +24,19 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * Get default role for new users.
+     * Create it if it does not exist.
+     *
+     * @return $this|Model|mixed
+     */
+    public function defaultRole()
+    {
+        $role = $this->where(['name' => 'user'])->first();
+        if (empty($role)) {
+            $role = $this->create(['name' => 'user']);
+        }
+        return $role;
+    }
 }

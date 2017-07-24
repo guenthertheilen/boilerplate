@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
@@ -28,15 +29,26 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    /**
+     * @var Role
+     */
+    private $role;
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param User $user
+     * @param Role $role
      */
-    public function __construct()
+    public function __construct(User $user, Role $role)
     {
         $this->middleware('guest');
+        $this->user = $user;
+        $this->role = $role;
     }
 
     /**
@@ -62,10 +74,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return $this->user->create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]
+        )->attachRole($this->role->defaultRole());
     }
 }
