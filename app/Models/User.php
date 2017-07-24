@@ -57,4 +57,15 @@ class User extends Authenticatable
     {
         $this->roles()->detach($role->id);
     }
+
+    /**
+     * Check if User has given Role.
+     *
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return in_array($role->id, $this->roles->pluck('id')->toArray());
+    }
 }

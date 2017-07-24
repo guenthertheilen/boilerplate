@@ -46,4 +46,17 @@ class UserTest extends TestCase
         $user = $user->fresh();
         $this->assertEmpty($user->roles);
     }
+
+    /** @test */
+    function it_checks_if_user_has_given_role()
+    {
+        $user = factory(User::class)->create();
+        $role1 = factory(Role::class)->create();
+        $role2 = factory(Role::class)->create();
+
+        $user->attachRole($role1);
+
+        $this->assertTrue($user->hasRole($role1));
+        $this->assertFalse($user->hasRole($role2));
+    }
 }
