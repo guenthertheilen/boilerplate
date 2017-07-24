@@ -43,20 +43,4 @@ class LoginTest extends DuskTestCase
                 ->assertPathIs('/');
         });
     }
-
-    /** @test */
-    function it_does_not_log_in_visitor_with_invalid_credentials()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->logout()
-                ->visit('/')
-                ->type('email', 'INVALID@example.com')
-                ->type('password', '123456')
-                ->press(__('Login'))
-                ->type('email', 'abc@example.com')
-                ->type('password', 'INVALID')
-                ->press(__('Login'))
-                ->assertPathIs(route('login', [], false));
-        });
-    }
 }

@@ -11,11 +11,6 @@ class UserRegistrationTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     /** @test */
     function it_registers_new_user()
     {
