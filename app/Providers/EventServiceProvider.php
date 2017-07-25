@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Events\UserCreated;
 use App\Listeners\AttachDefaultRoleToUser;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

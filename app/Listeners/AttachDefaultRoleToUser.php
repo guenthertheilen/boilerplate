@@ -5,8 +5,6 @@ namespace App\Listeners;
 use App\Events\UserCreated;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AttachDefaultRoleToUser
 {
@@ -14,6 +12,7 @@ class AttachDefaultRoleToUser
      * @var User
      */
     private $user;
+
     /**
      * @var Role
      */
@@ -34,7 +33,7 @@ class AttachDefaultRoleToUser
     /**
      * Handle the event.
      *
-     * @param  UserCreated  $event
+     * @param  UserCreated $event
      * @return void
      */
     public function handle(UserCreated $event)
