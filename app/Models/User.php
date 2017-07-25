@@ -37,7 +37,6 @@ class User extends Authenticatable
         'created' => UserCreated::class
     ];
 
-
     /**
      * A User can have many roles.
      *
