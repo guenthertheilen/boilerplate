@@ -17,13 +17,9 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
 
-        $this->assertEmpty($user->roles);
-
         $user->attachRole($role);
 
-        $user = $user->fresh();
-        $this->assertCount(1, $user->roles);
-        $this->assertEquals($role->id, $user->roles->first()->id);
+        $this->assertContains($role->id, $user->roles->pluck('id'));
     }
 
     /** @test */
@@ -35,8 +31,7 @@ class UserTest extends TestCase
 
         $user->detachRole($role);
 
-        $user = $user->fresh();
-        $this->assertEmpty($user->roles);
+        $this->assertNotContains($role->id, $user->roles->pluck('id'));
     }
 
     /** @test */
