@@ -94,6 +94,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if the user has Role named 'admin'.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
      * Check if User has role with given name.
      *
      * @param $role

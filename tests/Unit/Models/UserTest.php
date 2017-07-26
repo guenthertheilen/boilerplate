@@ -91,4 +91,17 @@ class UserTest extends TestCase
         $this->assertTrue($user->hasRole('foo'));
         $this->assertFalse($user->hasRole('bar'));
     }
+
+    /** @test */
+    function it_checks_if_user_is_admin()
+    {
+        $user = factory(User::class)->create();
+        $adminRole = factory(Role::class)->create(['name' => 'admin']);
+
+        $this->assertFalse($user->isAdmin());
+
+        $user->attachRole($adminRole);
+
+        $this->assertTrue($user->isAdmin());
+    }
 }
