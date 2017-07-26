@@ -14,6 +14,9 @@
                 <a href="{{ route('register') }}" class="navbar-item">@lang('Register')</a>
             @else
                 <a href="#" class="navbar-item">{{ Auth::user()->name }}</a>
+                @can('foo', App\Models\User::class)
+                    <a href="{{ route('foo') }}" class="navbar-item">Foo</a>
+                @endcan
                 <a href="{{ route('logout') }}"
                    class="navbar-item"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
