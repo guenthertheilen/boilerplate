@@ -55,6 +55,10 @@ class User extends Authenticatable
      */
     public function attachRole($role)
     {
+        if (is_string($role)) {
+            $role = Role::whereName($role)->first();
+        }
+
         if (!$this->hasRole($role)) {
             $this->roles()->attach($role->id);
             $this->refresh();
