@@ -48,6 +48,25 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function it_makes_sure_user_keeps_at_least_one_role()
+    {
+        $user = factory(User::class)->create();
+        $role = factory(Role::class)->create();
+
+        $defaultRoles = $user->roles;
+
+        $user->attachRole($role);
+
+        foreach ($defaultRoles as $defaultRole) {
+            $user->detachRole($defaultRole);
+        }
+
+        $user->detachRole($role);
+
+        $this->assertTrue($user->hasRole($role));
+    }
+
+    /** @test */
     function it_checks_if_user_has_given_role()
     {
         $user = factory(User::class)->create();
