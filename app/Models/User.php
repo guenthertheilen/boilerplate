@@ -55,7 +55,9 @@ class User extends Authenticatable
      */
     public function attachRole($role)
     {
-        $this->roles()->attach($role->id);
+        if (!$this->fresh()->hasRole($role)) {
+            $this->roles()->attach($role->id);
+        }
 
         return $this;
     }
@@ -70,7 +72,7 @@ class User extends Authenticatable
     {
         $this->roles()->detach($role->id);
 
-        return $this;
+        return $this->fresh();
     }
 
     /**

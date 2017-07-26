@@ -23,6 +23,19 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function it_does_not_attach_same_role_more_than_once()
+    {
+        $user = factory(User::class)->create();
+        $role = factory(Role::class)->create();
+
+        $user->attachRole($role);
+        $user->attachRole($role);
+        $user->attachRole($role);
+
+        $this->assertCount(1, $user->roles->where('id', '=', $role->id));
+    }
+
+    /** @test */
     function it_detaches_role_from_user()
     {
         $user = factory(User::class)->create();
