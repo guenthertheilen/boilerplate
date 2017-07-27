@@ -2,13 +2,14 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Authorize;
+use App\Http\Middleware\Authorization;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
@@ -66,7 +67,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'authenticate' => Authenticate::class,
-        'authorize' => Authorize::class,
+        'authorize' => Authorization::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
         'bindings' => SubstituteBindings::class,
         'can' => Authorize::class,

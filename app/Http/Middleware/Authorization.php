@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Services\Authorizer;
 use Closure;
 
-class Authorize
+class Authorization
 {
     private $authorizer;
 
