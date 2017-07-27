@@ -2,7 +2,7 @@
 
 Route::middleware(['authenticate', 'authorize'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-    
+
     Route::get('/foo', 'HomeController@foo')->name('foo');
 });
 
