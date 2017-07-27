@@ -36,6 +36,52 @@ class Role extends Model
     }
 
     /**
+     * Attach Permission to Role.
+     *
+     * @param $permission
+     * @return $this
+     */
+    public function attachPermission($permission)
+    {
+        if (is_string($permission)) {
+            $permission = Permission::whereName($permission)->first();
+        }
+
+        if (!$this->hasPermission($permission)) {
+            $this->permissions()->attach($permission->id);
+            $this->refresh();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if Role has given Permission.
+     *
+     * @param $permission
+     * @return bool
+     */
+    public function hasPermission($permission)
+    {
+        if (is_string($permission)) {
+            return $this->hasPermissionByName($permission);
+        }
+        return in_array($permission->id, $this->permissions->pluck('id')->toArray());
+    }
+
+    /**
+     * Check if Role has Permission with given name.
+     *
+     * @param $permission
+     * @return bool
+     */
+    private function hasPermissionByName($permission)
+    {
+        return in_array($permission, $this->permissions->pluck('name')->toArray());
+    }
+
+
+    /**
      * Get default role for new users.
      * Create it if it does not exist.
      *

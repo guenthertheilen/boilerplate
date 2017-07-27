@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Collection;
@@ -25,6 +26,54 @@ class RoleTest extends TestCase
         $role = factory(Role::class)->create();
 
         $this->assertInstanceOf(Collection::class, $role->permissions);
+    }
+
+    /** @test */
+    function it_attaches_permission_to_role()
+    {
+        $role = factory(Role::class)->create();
+        $permission = factory(Permission::class)->create();
+
+        $role->attachPermission($permission);
+
+        $this->assertContains($permission->id, $role->permissions->pluck('id'));
+    }
+
+    /** @test */
+    function it_attaches_permission_by_name_to_role()
+    {
+        $role = factory(Role::class)->create();
+        $permission = factory(Permission::class)->create(['name' => '/foobar']);
+
+        $role->attachPermission('/foobar');
+
+        $this->assertContains($permission->id, $role->permissions->pluck('id'));
+    }
+
+    /** @test */
+    function it_checks_if_role_has_given_permission()
+    {
+        $role = factory(Role::class)->create();
+        $permission1 = factory(Permission::class)->create();
+        $permission2 = factory(Permission::class)->create();
+
+        $role->attachPermission($permission1);
+
+        $this->assertTrue($role->hasPermission($permission1));
+        $this->assertFalse($role->hasPermission($permission2));
+    }
+
+    /** @test */
+    function it_checks_if_role_has_given_permission_by_name_of_permission()
+    {
+        $role = factory(Role::class)->create();
+        $permission1 = factory(Permission::class)->create(['name' => '/foo']);
+        factory(Permission::class)->create(['name' => '/bar']);
+
+        $role->attachPermission($permission1);
+
+        $this->assertTrue($role->hasPermission('/foo'));
+        $this->assertFalse($role->hasPermission('/bar'));
     }
 
     /** @test */
