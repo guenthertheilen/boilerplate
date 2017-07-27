@@ -14,9 +14,12 @@
                 <a href="{{ route('register') }}" class="navbar-item">@lang('Register')</a>
             @else
                 <a href="#" class="navbar-item">{{ Auth::user()->name }}</a>
-                @authorize
-                <a href="{{ route('foo') }}" class="navbar-item">Foo</a>
-                @endauthorize
+
+                @inject('authorizer', 'App\Services\Authorizer')
+                @if ($authorizer->allowsAccess(route('foo')))
+                    <a href="{{ route('foo') }}" class="navbar-item">Foo</a>
+                @endif
+
                 <a href="{{ route('logout') }}"
                    class="navbar-item"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

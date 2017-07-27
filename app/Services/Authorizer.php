@@ -21,14 +21,18 @@ class Authorizer
         return !$this->allowsAccess();
     }
 
-    private function allowsAccess()
+    public function allowsAccess($route = null)
     {
-        if ($this->router->getCurrentRoute()->uri == 'foo' && $this->user->isAdmin()) {
-            return true;
+        if ($route == null) {
+            if ($this->router->getCurrentRoute()->uri == 'foo' && $this->user->isAdmin()) {
+                return true;
+            }
+            if ($this->router->getCurrentRoute()->uri != 'foo') {
+                return true;
+            }
+            return false;
         }
-        if ($this->router->getCurrentRoute()->uri != 'foo') {
-            return true;
-        }
-        return false;
+        return $this->user->isAdmin();
+
     }
 }

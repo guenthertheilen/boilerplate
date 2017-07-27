@@ -30,9 +30,5 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(DuskServiceProvider::class);
         }
-
-        Blade::directive('authorize', function () {
-            return false;
-        });
     }
 }
