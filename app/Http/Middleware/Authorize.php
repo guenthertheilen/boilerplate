@@ -31,7 +31,7 @@ class Authorize
     public function handle($request, Closure $next)
     {
         if ($this->router->getCurrentRoute()->uri == 'foo' && !$this->user->isAdmin()) {
-            dd("FOO");
+            return response("Not authorized", 403);
         }
 
         return $next($request);
