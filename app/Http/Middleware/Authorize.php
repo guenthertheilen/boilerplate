@@ -2,23 +2,16 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
+use App\Services\Authorizer;
 use Closure;
-use Illuminate\Routing\Router;
 
 class Authorize
 {
-    private $router;
-    private $user;
+    private $authorizer;
 
-    /**
-     * Authorize constructor.
-     * @param Router $router
-     */
-    public function __construct(Router $router)
+    public function __construct(Authorizer $authorizer)
     {
-        $this->router = $router;
-        $this->user = Auth::user();
+        $this->authorizer = $authorizer;
     }
 
     /**
@@ -30,7 +23,7 @@ class Authorize
      */
     public function handle($request, Closure $next)
     {
-        if ($this->router->getCurrentRoute()->uri == 'foo' && !$this->user->isAdmin()) {
+        if ($this->authorizer->deniesAccess()) {
             return response("Not authorized", 403);
         }
 
