@@ -26,6 +26,16 @@ class Role extends Model
     }
 
     /**
+     * A Role can have many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    /**
      * Get default role for new users.
      * Create it if it does not exist.
      *

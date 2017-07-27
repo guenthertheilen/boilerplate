@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class RoleTest extends TestCase
@@ -15,7 +16,15 @@ class RoleTest extends TestCase
     {
         $role = factory(Role::class)->create();
 
-        $role->users;
+        $this->assertInstanceOf(Collection::class, $role->users);
+    }
+
+    /** @test */
+    function it_has_permissions()
+    {
+        $role = factory(Role::class)->create();
+
+        $this->assertInstanceOf(Collection::class, $role->permissions);
     }
 
     /** @test */
