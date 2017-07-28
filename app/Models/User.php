@@ -108,6 +108,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if the User has Permission by given name.
+     *
+     * @param $permission
+     * @return bool
+     */
+    public function hasPermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->hasPermission($permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Check if User has role with given name.
      *
      * @param $role

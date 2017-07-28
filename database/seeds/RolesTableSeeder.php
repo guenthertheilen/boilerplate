@@ -13,10 +13,9 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $adminRole = factory(Role::class)->create(['name' => 'admin']);
-        $adminRole->attachPermission('/');
-        $adminRole->attachPermission('/foo');
+        $adminRole->attachPermission('home');
 
         $userRole = factory(Role::class)->create(['name' => 'user']);
-        $userRole->attachPermission('/');
+        $userRole->attachPermission('home');
     }
 }

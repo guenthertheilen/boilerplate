@@ -12,7 +12,6 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Permission::class)->create(['name' => '/']);
-        factory(Permission::class)->create(['name' => '/foo']);
+        factory(Permission::class)->create(['name' => 'home']);
     }
 }

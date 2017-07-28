@@ -2,8 +2,6 @@
 
 Route::middleware(['authenticate', 'authorize'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-
-    Route::get('/foo', 'HomeController@foo')->name('foo');
 });
 
 // Authentication Routes...
@@ -20,5 +18,11 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+// Route only for testing purposes
+Route::get("/A1IboUB4N6w27hLNMeKnecsl7obntg", function () {
+    return "gtnbo7lscenKeMNLh72w6N4BUobI1A";
+})->middleware(['authenticate', 'authorize'])
+    ->name("A1IboUB4N6w27hLNMeKnecsl7obntg");
 
 

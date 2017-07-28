@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -123,5 +124,20 @@ class UserTest extends TestCase
         $user->attachRole($adminRole);
 
         $this->assertTrue($user->isAdmin());
+    }
+
+    /** @test */
+    function it_checks_if_user_has_permission_by_name()
+    {
+        $permission = factory(Permission::class)->create(['name' => 'foo']);
+
+        $role = factory(Role::class)->create();
+        $role->attachPermission($permission);
+
+        $user = factory(User::class)->create();
+        $user->attachRole($role);
+
+        $this->assertTrue($user->hasPermission('foo'));
+        $this->assertFalse($user->hasPermission('bar'));
     }
 }
