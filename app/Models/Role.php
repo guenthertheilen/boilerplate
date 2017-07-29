@@ -89,10 +89,6 @@ class Role extends Model
      */
     public function defaultRole()
     {
-        $role = $this->where(['name' => 'user'])->first();
-        if (empty($role)) {
-            $role = $this->create(['name' => 'user']);
-        }
-        return $role;
+        return $this->firstOrCreate(['name' => 'user']);
     }
 }
