@@ -50,7 +50,7 @@ class User extends Authenticatable
     /**
      * Attach Role to User.
      *
-     * @param Role $role
+     * @param Role|string $role
      * @return $this
      */
     public function attachRole($role)
