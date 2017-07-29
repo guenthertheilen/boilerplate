@@ -65,7 +65,20 @@ class Scaffold extends Command
 
     private function createPermissions()
     {
-        $this->permission->create(['name' => 'home']);
+        $permissions = [
+            'home',
+            'permission.create',
+            'permission.destroy',
+            'permission.edit',
+            'permission.index',
+            'permission.show',
+            'permission.store',
+            'permission.update',
+        ];
+
+        foreach ($permissions as $permission) {
+            $this->permission->create(['name' => $permission]);
+        }
     }
 
     private function createAdminRole()
@@ -84,8 +97,21 @@ class Scaffold extends Command
 
     private function attachAdminPermissions()
     {
-        $this->role->where('name', '=', 'admin')->first()
-            ->attachPermission('home'); // Temporary. This is covered with user role.
+        $adminPermissions = [
+            'permission.create',
+            'permission.destroy',
+            'permission.edit',
+            'permission.index',
+            'permission.show',
+            'permission.store',
+            'permission.update',
+        ];
+
+        $admin = $this->role->where('name', '=', 'admin')->first();
+
+        foreach ($adminPermissions as $adminPermission) {
+            $admin->attachPermission($adminPermission);
+        }
     }
 
     private function attachUserPermissions()

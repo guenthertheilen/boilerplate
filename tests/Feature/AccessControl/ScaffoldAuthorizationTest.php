@@ -3,6 +3,7 @@
 namespace Tests\Feature\AccessControl;
 
 use App\Models\User;
+use App\Services\Authorizer;
 use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -38,11 +39,21 @@ class ScaffoldAuthorizationTest extends TestCase
     /** @test */
     function it_scaffolds_permission_for_admin()
     {
-        $admin = User::where('name', '=', env('ADMIN_NAME'))->first();
+        $adminPermissions = [
+            'permission.create',
+            'permission.destroy',
+            'permission.edit',
+            'permission.index',
+            'permission.show',
+            'permission.store',
+            'permission.update',
+        ];
 
-        $this->actingAs($admin)
-            ->get(route('home'))  // Temporary. This is covered in user role.
-            ->assertStatus(200);
+        $this->actingAs(User::where('name', '=', env('ADMIN_NAME'))->first());
+
+        foreach ($adminPermissions as $adminPermission) {
+            $this->assertTrue(app(Authorizer::class)->allows($adminPermission));
+        }
     }
 
     /** @test */

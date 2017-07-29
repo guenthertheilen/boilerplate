@@ -5,6 +5,7 @@ namespace Tests\Feature\AccessControl;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Authorizer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -43,6 +44,9 @@ class AuthorizationTest extends TestCase
             ->get(route("A1IboUB4N6w27hLNMeKnecsl7obntg"))
             ->assertSee("gtnbo7lscenKeMNLh72w6N4BUobI1A")
             ->assertStatus(200);
+
+        $this->assertTrue(app(Authorizer::class)->allows("A1IboUB4N6w27hLNMeKnecsl7obntg"));
+        $this->assertFalse(app(Authorizer::class)->denies("A1IboUB4N6w27hLNMeKnecsl7obntg"));
     }
 
     /** @test */
@@ -52,5 +56,8 @@ class AuthorizationTest extends TestCase
             ->get(route("A1IboUB4N6w27hLNMeKnecsl7obntg"))
             ->assertDontSee("gtnbo7lscenKeMNLh72w6N4BUobI1A")
             ->assertStatus(403);
+
+        $this->assertFalse(app(Authorizer::class)->allows("A1IboUB4N6w27hLNMeKnecsl7obntg"));
+        $this->assertTrue(app(Authorizer::class)->denies("A1IboUB4N6w27hLNMeKnecsl7obntg"));
     }
 }

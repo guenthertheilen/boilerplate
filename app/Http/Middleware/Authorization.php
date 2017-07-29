@@ -23,7 +23,7 @@ class Authorization
      */
     public function handle($request, Closure $next)
     {
-        if ($this->authorizer->deniesAccess()) {
+        if ($this->authorizer->denies()) {
             return response("Not authorized", 403);
         }
 

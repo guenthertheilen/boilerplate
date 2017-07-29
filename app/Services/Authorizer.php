@@ -16,13 +16,16 @@ class Authorizer
         $this->user = Auth::user();
     }
 
-    public function deniesAccess()
+    public function denies($permission = null)
     {
-        return !$this->allowsAccess();
+        return !$this->allows($permission);
     }
 
-    public function allowsAccess()
+    public function allows($permission = null)
     {
-        return $this->user->hasPermission($this->router->getCurrentRoute()->getName());
+        if ($permission == null) {
+            $permission = $this->router->getCurrentRoute()->getName();
+        }
+        return $this->user->hasPermission($permission);
     }
 }

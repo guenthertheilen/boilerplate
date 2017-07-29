@@ -2,6 +2,7 @@
 
 Route::middleware(['authenticate', 'authorize'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('permission', 'PermissionController');
 });
 
 // Authentication Routes...
