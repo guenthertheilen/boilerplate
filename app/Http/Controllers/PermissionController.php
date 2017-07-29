@@ -8,6 +8,20 @@ use Illuminate\Http\Request;
 class PermissionController extends Controller
 {
     /**
+     * @var Permission
+     */
+    private $permission;
+
+    /**
+     * PermissionController constructor.
+     * @param Permission $permission
+     */
+    public function __construct(Permission $permission)
+    {
+        $this->permission = $permission;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -35,7 +49,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->permission->create($request->only(['name']));
     }
 
     /**
