@@ -6,10 +6,12 @@
   "Logout": "Abmelden",
   "Name": "Name",
   "Password": "Passwort",
+  "Permission": "Recht",
   "Permissions": "Rechte",
   "Register": "Registrieren",
   "Remember Me": "Angemeldet bleiben",
   "Reset Password": "Passwort zurücksetzen",
+  "Roles": "Usergruppen",
   "Save New Password": "Neues Passwort speichern",
   "Send Password Reset Link": "Link zum Zurücksetzen zusenden"
 }

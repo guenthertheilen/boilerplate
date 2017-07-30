@@ -24,4 +24,17 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Return the names of the attached rols in alphabetical order as comma seperated string
+     *
+     * @return string
+     */
+    public function rolesAsString()
+    {
+        return $this->roles
+            ->pluck('name')
+            ->sort()
+            ->implode(', ');
+    }
 }

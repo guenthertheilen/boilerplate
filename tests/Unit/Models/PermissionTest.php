@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
@@ -17,5 +18,19 @@ class PermissionTest extends TestCase
         $permission = factory(Permission::class)->create();
 
         $this->assertInstanceOf(Collection::class, $permission->roles);
+    }
+
+    /** @test */
+    function it_gets_attached_roles_in_alphabetical_order_as_comma_seperated_string()
+    {
+        $permission = factory(Permission::class)->create();
+
+        $role1 = factory(Role::class)->create(['name' => 'XYZ']);
+        $role1->attachPermission($permission);
+
+        $role2 = factory(Role::class)->create(['name' => 'ABC']);
+        $role2->attachPermission($permission);
+
+        $this->assertEquals('ABC, XYZ', $permission->rolesAsString());
     }
 }
