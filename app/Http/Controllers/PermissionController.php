@@ -71,7 +71,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        //
+        return view('permissions.edit')->with('permission', $permission);
     }
 
     /**
