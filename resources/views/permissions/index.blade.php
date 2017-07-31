@@ -7,6 +7,7 @@
             <tr>
                 <th>@lang('Permission')</th>
                 <th>@lang('Roles')</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -14,6 +15,11 @@
                 <tr>
                     <td>{{$permission->name}}</td>
                     <td>{{$permission->rolesAsString()}}</td>
+                    <td>
+                        <span class="icon is-small">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
