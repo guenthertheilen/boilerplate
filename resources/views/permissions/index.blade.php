@@ -16,9 +16,11 @@
                     <td>{{$permission->name}}</td>
                     <td>{{$permission->rolesAsString()}}</td>
                     <td>
-                        <span class="icon is-small">
-                            <i class="fa fa-pencil"></i>
-                        </span>
+                        <a href="{{route('permission.edit', $permission->id)}}">
+                            <span class="icon is-small">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                        </a>
                     </td>
                 </tr>
             @endforeach

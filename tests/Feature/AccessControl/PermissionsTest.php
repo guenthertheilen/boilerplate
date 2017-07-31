@@ -30,4 +30,13 @@ class PermissionsTest extends TestCase
 
         $this->assertDatabaseHas('permissions', ['name' => 'foo']);
     }
+
+    /** @test */
+    function it_shows_links_to_edit_permissions()
+    {
+        $permission = factory(Permission::class)->create();
+        $this->withoutMiddleware()
+            ->get(route('permission.index'))
+            ->assertSee(route('permission.edit', $permission->id));
+    }
 }
