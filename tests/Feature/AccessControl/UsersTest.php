@@ -26,9 +26,13 @@ class UsersTest extends TestCase
     function it_adds_new_user()
     {
         $this->withoutMiddleware()
-            ->post(route('user.store'), ['name' => 'Jimmy McGill']);
+            ->post(route('user.store'), [
+                'name' => 'Foo Bar',
+                'email' => 'foo@bar.com',
+                'password' => 'bizbaz'
+            ]);
 
-        $this->assertDatabaseHas('users', ['name' => 'Jimmy McGill']);
+        $this->assertDatabaseHas('users', ['name' => 'Foo Bar']);
     }
 
     /** @test */

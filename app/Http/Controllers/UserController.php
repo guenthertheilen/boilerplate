@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->user->create($request->only(['name']));
+        $this->user->create($request->only(['name', 'email', 'password']));
 
         return redirect(route('user.index'));
     }
