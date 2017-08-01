@@ -28,7 +28,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('permissions.index')->with('permissions', $this->permission->all());
+        return view('permissions.index')->with('permissions', $this->permission->with('roles')->get());
     }
 
     /**
