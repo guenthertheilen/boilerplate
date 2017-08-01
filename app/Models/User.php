@@ -124,6 +124,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Return the names of the attached rols in alphabetical order as comma seperated string
+     *
+     * @return string
+     */
+    public function rolesAsString()
+    {
+        return $this->roles
+            ->pluck('name')
+            ->sort()
+            ->implode(', ');
+    }
+
+    /**
      * Check if User has role with given name.
      *
      * @param $role

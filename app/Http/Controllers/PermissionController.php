@@ -50,6 +50,8 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->permission->create($request->only(['name']));
+
+        return redirect(route('permission.index'));
     }
 
     /**

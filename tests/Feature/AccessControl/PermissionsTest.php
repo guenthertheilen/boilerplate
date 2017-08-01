@@ -17,7 +17,7 @@ class PermissionsTest extends TestCase
         factory(Permission::class)->create(['name' => 'permission_2']);
 
         $this->withoutMiddleware()
-            ->get('permission')
+            ->get(route('permission.index'))
             ->assertSeeText('permission_1')
             ->assertSeeText('permission_2');
     }
@@ -32,7 +32,7 @@ class PermissionsTest extends TestCase
     }
 
     /** @test */
-    function it_shows_links_to_edit_permissions()
+    function it_shows_links_to_edit_permission()
     {
         $permission = factory(Permission::class)->create();
         $this->withoutMiddleware()

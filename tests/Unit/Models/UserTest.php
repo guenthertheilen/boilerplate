@@ -140,4 +140,18 @@ class UserTest extends TestCase
         $this->assertTrue($user->hasPermission('foo'));
         $this->assertFalse($user->hasPermission('bar'));
     }
+
+    /** @test */
+    function it_gets_attached_roles_in_alphabetical_order_as_comma_seperated_string()
+    {
+        $user = factory(User::class)->create();
+
+        $role1 = factory(Role::class)->create(['name' => 'xyz']);
+        $user->attachRole($role1);
+
+        $role2 = factory(Role::class)->create(['name' => 'abc']);
+        $user->attachRole($role2);
+
+        $this->assertEquals('abc, user, xyz', $user->rolesAsString());
+    }
 }

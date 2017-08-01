@@ -25,12 +25,12 @@ class PermissionTest extends TestCase
     {
         $permission = factory(Permission::class)->create();
 
-        $role1 = factory(Role::class)->create(['name' => 'XYZ']);
+        $role1 = factory(Role::class)->create(['name' => 'xyz']);
         $role1->attachPermission($permission);
 
-        $role2 = factory(Role::class)->create(['name' => 'ABC']);
+        $role2 = factory(Role::class)->create(['name' => 'abc']);
         $role2->attachPermission($permission);
 
-        $this->assertEquals('ABC, XYZ', $permission->rolesAsString());
+        $this->assertEquals('abc, xyz', $permission->rolesAsString());
     }
 }
