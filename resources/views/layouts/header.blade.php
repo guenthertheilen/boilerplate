@@ -14,6 +14,12 @@
                 <a href="{{ route('register') }}" class="navbar-item">@lang('Register')</a>
             @else
                 <a href="#" class="navbar-item">{{ Auth::user()->name }}</a>
+                @if($authorizer->allows('user.index'))
+                    <a href="{{ route('user.index') }}" class="navbar-item">@lang('Users')</a>
+                @endif
+                @if($authorizer->allows('role.index'))
+                    <a href="{{ route('role.index') }}" class="navbar-item">@lang('Roles')</a>
+                @endif
                 @if($authorizer->allows('permission.index'))
                     <a href="{{ route('permission.index') }}" class="navbar-item">@lang('Permissions')</a>
                 @endif

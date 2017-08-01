@@ -11,7 +11,8 @@
   "Register": "Registrieren",
   "Remember Me": "Angemeldet bleiben",
   "Reset Password": "Passwort zurücksetzen",
-  "Roles": "Usergruppen",
+  "Roles": "Benutzergruppen",
   "Save New Password": "Neues Passwort speichern",
-  "Send Password Reset Link": "Link zum Zurücksetzen zusenden"
+  "Send Password Reset Link": "Link zum Zurücksetzen zusenden",
+  "Users": "Benutzer"
 }

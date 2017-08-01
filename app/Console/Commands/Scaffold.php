@@ -74,6 +74,20 @@ class Scaffold extends Command
             'permission.show',
             'permission.store',
             'permission.update',
+            'role.create',
+            'role.destroy',
+            'role.edit',
+            'role.index',
+            'role.show',
+            'role.store',
+            'role.update',
+            'user.create',
+            'user.destroy',
+            'user.edit',
+            'user.index',
+            'user.show',
+            'user.store',
+            'user.update',
         ];
 
         foreach ($permissions as $permission) {
@@ -105,6 +119,20 @@ class Scaffold extends Command
             'permission.show',
             'permission.store',
             'permission.update',
+            'role.create',
+            'role.destroy',
+            'role.edit',
+            'role.index',
+            'role.show',
+            'role.store',
+            'role.update',
+            'user.create',
+            'user.destroy',
+            'user.edit',
+            'user.index',
+            'user.show',
+            'user.store',
+            'user.update',
         ];
 
         $admin = $this->role->where('name', '=', 'admin')->first();

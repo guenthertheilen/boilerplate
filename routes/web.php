@@ -3,6 +3,8 @@
 Route::middleware(['authenticate', 'authorize'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('permission', 'PermissionController');
+    Route::resource('role', 'RoleController');
+    Route::resource('user', 'UserController');
 });
 
 // Authentication Routes...
