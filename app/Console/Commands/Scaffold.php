@@ -103,9 +103,9 @@ class Scaffold extends Command
     private function createAdminUser()
     {
         $this->user->create([
-            'name' => env('ADMIN_NAME'),
-            'email' => env('ADMIN_EMAIL'),
-            'password' => bcrypt(env('ADMIN_PASSWORD'))
+            'name' => config('scaffold.admin_name'),
+            'email' => config('scaffold.admin_email'),
+            'password' => bcrypt(config('scaffold.admin_password'))
         ])->attachRole('admin');
     }
 

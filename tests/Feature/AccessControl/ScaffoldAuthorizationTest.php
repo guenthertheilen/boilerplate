@@ -23,16 +23,16 @@ class ScaffoldAuthorizationTest extends TestCase
     function it_generates_admin_user()
     {
         $this->assertDatabaseHas('users', [
-            'name' => env('ADMIN_NAME'),
-            'email' => env('ADMIN_EMAIL')
+            'name' => config('scaffold.admin_name'),
+            'email' => config('scaffold.admin_email')
         ]);
 
         $this->assertTrue(Auth::validate([
-            'email' => env('ADMIN_EMAIL'),
-            'password' => env('ADMIN_PASSWORD')
+            'email' => config('scaffold.admin_email'),
+            'password' => config('scaffold.admin_password')
         ]));
 
-        $admin = User::where('name', '=', env('ADMIN_NAME'))->first();
+        $admin = User::where('name', '=', config('scaffold.admin_name'))->first();
         $this->assertTrue($admin->hasRole('admin'));
     }
 
@@ -63,7 +63,7 @@ class ScaffoldAuthorizationTest extends TestCase
             'user.update',
         ];
 
-        $this->actingAs(User::where('name', '=', env('ADMIN_NAME'))->first());
+        $this->actingAs(User::where('name', '=', config('scaffold.admin_name'))->first());
 
         foreach ($adminPermissions as $adminPermission) {
             $this->assertTrue(app(Authorizer::class)->allows($adminPermission));
