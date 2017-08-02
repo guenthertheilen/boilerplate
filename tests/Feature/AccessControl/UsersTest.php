@@ -13,13 +13,15 @@ class UsersTest extends TestCase
     /** @test */
     function it_shows_list_of_users()
     {
-        factory(User::class)->create(['name' => 'Jane Doe']);
-        factory(User::class)->create(['name' => 'John Doe']);
+        factory(User::class)->create(['name' => 'Jane Doe', 'email' => 'jane@foo.de']);
+        factory(User::class)->create(['name' => 'John Doe', 'email' => 'john@bar.org']);
 
         $this->withoutMiddleware()
             ->get(route('user.index'))
             ->assertSeeText('Jane Doe')
-            ->assertSeeText('John Doe');
+            ->assertSeeText('jane@foo.de')
+            ->assertSeeText('John Doe')
+            ->assertSeeText('john@bar.org');
     }
 
     /** @test */
@@ -32,7 +34,7 @@ class UsersTest extends TestCase
                 'password' => 'bizbaz'
             ]);
 
-        $this->assertDatabaseHas('users', ['name' => 'Foo Bar']);
+        $this->assertDatabaseHas('users', ['name' => 'Foo Bar', 'email' => 'foo@bar.com']);
     }
 
     /** @test */

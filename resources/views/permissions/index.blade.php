@@ -13,10 +13,10 @@
             <tbody>
             @foreach($permissions as $permission)
                 <tr>
-                    <td>{{$permission->name}}</td>
-                    <td>{{$permission->rolesAsString()}}</td>
+                    <td>{{ $permission->name }}</td>
+                    <td>{{ $permission->rolesAsString() }}</td>
                     <td>
-                        <a href="{{route('permission.edit', $permission->id)}}">
+                        <a href="{{ route('permission.edit', $permission->id) }}">
                             <span class="icon is-small">
                                 <i class="fa fa-pencil"></i>
                             </span>
