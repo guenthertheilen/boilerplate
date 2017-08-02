@@ -28,8 +28,11 @@ class UsersTest extends DuskTestCase
 
 
     /** @test */
-    public function it_changes_username_and_email()
+    public function it_changes_username_and_email_and_roles()
     {
+        $this->assertTrue($this->user->hasRole('user'));
+        $this->assertFalse($this->user->hasRole('admin'));
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
                 ->visit(route('user.index'))
@@ -38,6 +41,8 @@ class UsersTest extends DuskTestCase
                 ->click('#user-edit-' . $this->user->id)
                 ->type('name', 'Kim Wexler')
                 ->type('email', 'kim@example.com')
+                ->uncheck('#role-user')
+                ->check('#role-admin')
                 ->press(__('Update'))
                 ->assertRouteIs('user.index')
                 ->assertSee('Kim Wexler')
@@ -45,5 +50,8 @@ class UsersTest extends DuskTestCase
                 ->assertDontSee('Jimmy McGill')
                 ->assertDontSee('jimmy@example.com');
         });
+
+        $this->assertFalse($this->user->hasRole('user'));
+        $this->assertTrue($this->user->hasRole('admin'));
     }
 }

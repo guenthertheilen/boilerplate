@@ -40,6 +40,18 @@
             </div>
 
             <div class="field">
+                <label class="label">@lang('Roles')</label>
+                @foreach($roles as $role)
+                    <label class="checkbox">
+                        <input type="checkbox" id="role-{{ $role->name }}"
+                               @if($user->hasRole($role->name)) checked @endif
+                        >
+                        {{ $role->name }}
+                    </label>
+                @endforeach
+            </div>
+
+            <div class="field">
                 <div class="control">
                     <button class="button is-primary">@lang('Update')</button>
                 </div>

@@ -12056,3 +12056,7 @@ label.panel-block:hover {
   color: #00d1b2;
 }
 
+label.checkbox {
+  display: block;
+}
+
