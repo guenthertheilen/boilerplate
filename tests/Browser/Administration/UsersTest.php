@@ -28,29 +28,21 @@ class UsersTest extends DuskTestCase
 
 
     /** @test */
-    public function it_changes_username()
+    public function it_changes_username_and_email()
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
-                ->visit(route('user.edit', $this->user->id))
+                ->visit(route('user.index'))
+                ->assertSee('Jimmy McGill')
+                ->assertSee('jimmy@example.com')
+                ->click('#user-edit-' . $this->user->id)
                 ->type('name', 'Kim Wexler')
-                ->press(__('Update'))
-                ->assertRouteIs('user.index')
-                ->assertSee('Kim Wexler')
-                ->assertDontSee('Jimmy McGill');
-        });
-    }
-
-    /** @test */
-    public function it_changes_email()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs($this->admin)
-                ->visit(route('user.edit', $this->user->id))
                 ->type('email', 'kim@example.com')
                 ->press(__('Update'))
                 ->assertRouteIs('user.index')
+                ->assertSee('Kim Wexler')
                 ->assertSee('kim@example.com')
+                ->assertDontSee('Jimmy McGill')
                 ->assertDontSee('jimmy@example.com');
         });
     }

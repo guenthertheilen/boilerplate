@@ -17,7 +17,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->rolesAsString() }}</td>
                 <td>
-                    <a href="{{ route('user.edit', $user->id) }}">
+                    <a href="{{ route('user.edit', $user->id) }}" id="user-edit-{{ $user->id }}">
                             <span class="icon is-small">
                                 <i class="fa fa-pencil"></i>
                             </span>
