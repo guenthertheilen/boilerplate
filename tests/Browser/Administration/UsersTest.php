@@ -51,6 +51,7 @@ class UsersTest extends DuskTestCase
                 ->assertDontSee('jimmy@example.com');
         });
 
+        $this->user->refresh();
         $this->assertFalse($this->user->hasRole('user'));
         $this->assertTrue($this->user->hasRole('admin'));
     }

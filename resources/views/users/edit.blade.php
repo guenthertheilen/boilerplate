@@ -43,7 +43,10 @@
                 <label class="label">@lang('Roles')</label>
                 @foreach($roles as $role)
                     <label class="checkbox">
-                        <input type="checkbox" id="role-{{ $role->name }}"
+                        <input type="checkbox"
+                               name="roles[]"
+                               value="{{ $role->id }}"
+                               id="role-{{ $role->name }}"
                                @if($user->hasRole($role->name)) checked @endif
                         >
                         {{ $role->name }}

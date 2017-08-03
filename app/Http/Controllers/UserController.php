@@ -88,6 +88,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
+        $user->roles()->sync($request->get('roles'));
 
         return redirect(route('user.index'));
     }
