@@ -82,11 +82,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param User $user
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        // TODO: Replace by route model binding in L5.5
+        // route model binding does not work in 5.4 with WithoutMiddleware in tests
+        $user = app(User::class)->find($id);
         $user->update($request->only(['name', 'email']));
         $user->roles()->sync($request->get('roles'));
 
