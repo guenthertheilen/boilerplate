@@ -122,4 +122,16 @@ class UsersTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['email' => '']);
     }
+
+    /** @test */
+    function it_does_not_update_user_without_valid_email()
+    {
+        $user = factory(User::class)->create(['email' => 'foo@bar.com']);
+        $role = factory(Role::class)->create();
+        $user->attachRole($role);
+
+        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => 'not-an-email', 'roles' => [$role->id]]);
+
+        $this->assertDatabaseMissing('users', ['email' => 'not-an-email']);
+    }
 }
