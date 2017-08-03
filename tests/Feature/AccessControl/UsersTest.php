@@ -29,10 +29,10 @@ class UsersTest extends TestCase
     function it_adds_new_user()
     {
         $this->post(route('user.store'), [
-                'name' => 'Foo Bar',
-                'email' => 'foo@bar.com',
-                'password' => 'bizbaz'
-            ]);
+            'name' => 'Foo Bar',
+            'email' => 'foo@bar.com',
+            'password' => 'bizbaz'
+        ]);
 
         $this->assertDatabaseHas('users', ['name' => 'Foo Bar', 'email' => 'foo@bar.com']);
     }
@@ -54,8 +54,27 @@ class UsersTest extends TestCase
         $role2 = factory(Role::class)->create();
         $user->attachRole($role1);
 
-        $this->patch(route('user.update', $user->id), ['name' => 'bar', 'email' => 'bar@example.com', 'roles' => [$role2->id]]);
+        $this->patch(route('user.update', $user->id), ['name' => 'bar', 'email' => 'bar@example.com', 'roles' => [$role2->id]])
+            ->assertRedirect(route('user.index'));
 
         $this->assertDatabaseHas('users', ['name' => 'bar', 'email' => 'bar@example.com']);
+        $this->assertDatabaseMissing('users', ['name' => 'foo']);
+        $this->assertDatabaseMissing('users', ['email' => 'foo@example.com']);
+
+        $user->refresh();
+        $this->assertFalse($user->hasRole($role1));
+        $this->assertTrue($user->hasRole($role2));
+    }
+
+    /** @test */
+    function it_does_not_update_user_without_name()
+    {
+        $user = factory(User::class)->create(['name' => 'foo']);
+        $role = factory(Role::class)->create();
+        $user->attachRole($role);
+
+        $this->patch(route('user.update', $user->id), ['name' => '', 'email' => $user->email, 'roles' => [$role->id]]);
+
+        $this->assertDatabaseMissing('users', ['name' => '']);
     }
 }
