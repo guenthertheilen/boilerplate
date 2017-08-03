@@ -134,4 +134,17 @@ class UsersTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['email' => 'not-an-email']);
     }
+
+    /** @test */
+    function it_does_not_update_user_without_unique_email()
+    {
+        factory(User::class)->create(['email' => 'foo@foo.com']);
+
+        $user = factory(User::class)->create(['email' => 'bar@bar.com']);
+        $role = factory(Role::class)->create();
+        $user->attachRole($role);
+        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => 'foo@foo.com', 'roles' => [$role->id]]);
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id, 'email' => 'foo@foo.com']);
+    }
 }
