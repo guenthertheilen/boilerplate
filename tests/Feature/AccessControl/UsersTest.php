@@ -158,4 +158,33 @@ class UsersTest extends TestCase
         $user->refresh();
         $this->assertCount(1, $user->roles);
     }
+
+    /** @test */
+    function it_can_remove_admin_role_from_other_users()
+    {
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $adminRole = factory(Role::class)->create(['name' => 'admin']);
+        $user2->attachRole($adminRole);
+
+        $this->actingAs($user1)
+            ->patch(route('user.update', $user2->id), ['name' => $user2->name, 'email' => $user2->email, 'roles' => [1]]);
+
+        $user2->refresh();
+        $this->assertFalse($user1->hasRole('admin'));
+    }
+
+    /** @test */
+    function it_prevents_user_from_removing_own_admin_role()
+    {
+        $user = factory(User::class)->create();
+        $adminRole = factory(Role::class)->create(['name' => 'admin']);
+        $user->attachRole($adminRole);
+
+        $this->actingAs($user)
+            ->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => $user->email, 'roles' => [1]]);
+
+        $user->refresh();
+        $this->assertTrue($user->hasRole('admin'));
+    }
 }
