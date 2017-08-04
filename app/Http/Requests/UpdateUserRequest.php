@@ -30,7 +30,8 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'email',
                 Rule::unique('users')->ignore($this->route('user')),
-            ]
+            ],
+            'roles' => 'required'
         ];
     }
 }
