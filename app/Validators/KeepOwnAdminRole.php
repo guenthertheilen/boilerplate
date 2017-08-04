@@ -9,15 +9,15 @@ class KeepOwnAdminRole
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        return $this->isUpdatingOtherUser($parameters[0]) || $this->itDoesNotRemoveAdminRole($value);
+        return $this->isNotEditingOwnRoles($parameters[0]) || $this->isNotRemovingAdminRole($value);
     }
 
-    private function isUpdatingOtherUser($userId)
+    private function isNotEditingOwnRoles($userId)
     {
         return Auth::id() != $userId;
     }
 
-    private function itDoesNotRemoveAdminRole($roles)
+    private function isNotRemovingAdminRole($roles)
     {
         return in_array($this->adminRoleId(), $roles);
     }
