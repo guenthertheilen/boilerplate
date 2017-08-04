@@ -52,6 +52,9 @@
                         {{ $role->name }}
                     </label>
                 @endforeach
+                @if ($errors->has('roles'))
+                    <p class="help is-danger">{{ $errors->first('roles') }}</p>
+                @endif
             </div>
 
             <div class="field">
