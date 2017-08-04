@@ -108,6 +108,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if the user does not have Role named 'admin'.
+     *
+     * @return bool
+     */
+    public function isNotAdmin()
+    {
+        return !$this->isAdmin();
+    }
+
+    /**
      * Check if the User has Permission by given name.
      *
      * @param $permission

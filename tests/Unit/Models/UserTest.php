@@ -127,6 +127,19 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function it_checks_if_user_is_not_admin()
+    {
+        $user = factory(User::class)->create();
+        $adminRole = factory(Role::class)->create(['name' => 'admin']);
+
+        $this->assertTrue($user->isNotAdmin());
+
+        $user->attachRole($adminRole);
+
+        $this->assertFalse($user->isNotAdmin());
+    }
+
+    /** @test */
     function it_checks_if_user_has_permission_by_name()
     {
         $permission = factory(Permission::class)->create(['name' => 'foo']);
