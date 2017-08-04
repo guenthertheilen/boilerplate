@@ -47,7 +47,7 @@
                                name="roles[]"
                                value="{{ $role->id }}"
                                id="role-{{ $role->name }}"
-                               @if($user->hasRole($role->name)) checked @endif
+                               @if((empty(old()) && $user->hasRole($role->name)) || (is_array(old('roles')) && in_array($role->id, old('roles')))) checked @endif
                         >
                         {{ $role->name }}
                     </label>
