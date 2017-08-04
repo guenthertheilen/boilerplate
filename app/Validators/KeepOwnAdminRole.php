@@ -3,18 +3,18 @@
 namespace App\Validators;
 
 use App\Models\Role;
-use App\Models\User;
+use Auth;
 
 class KeepOwnAdminRole
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        return $this->userIsNoAdmin($parameters[0]) || $this->itDoesNotRemoveAdminRole($value);
+        return $this->isUpdatingOtherUser($parameters[0]) || $this->itDoesNotRemoveAdminRole($value);
     }
 
-    private function userIsNoAdmin($userId)
+    private function isUpdatingOtherUser($userId)
     {
-        return app(User::class)->find($userId)->isNotAdmin();
+        return Auth::id() != $userId;
     }
 
     private function itDoesNotRemoveAdminRole($roles)

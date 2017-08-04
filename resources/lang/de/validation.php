@@ -2,16 +2,6 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | such as the size rules. Feel free to tweak each of these messages.
-    |
-    */
 
     'accepted'             => ':attribute muss akzeptiert werden.',
     'active_url'           => ':attribute ist keine gültige Internet-Adresse.',
@@ -50,6 +40,7 @@ return [
     'ipv4'                 => ':attribute muss eine gültige IPv4-Adresse sein.',
     'ipv6'                 => ':attribute muss eine gültige IPv6-Adresse sein.',
     'json'                 => ':attribute muss ein gültiger JSON-String sein.',
+    'keep_own_admin_role'  => 'Eigene Admin-Berechtigung kann nicht entfernt werden.',
     'max'                  => [
         'numeric' => ':attribute darf maximal :max sein.',
         'file'    => ':attribute darf maximal :max Kilobytes groß sein.',
