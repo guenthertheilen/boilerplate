@@ -87,4 +87,14 @@ class RoleTest extends TestCase
 
         $this->assertCount(1, app(Role::class)->where(['name' => 'user'])->get());
     }
+
+    /** @test */
+    function it_checks_if_role_is_default_role()
+    {
+        $role1 = factory(Role::class)->create(['name' => 'foo']);
+        $this->assertFalse($role1->isDefaultRole());
+
+        $role2 = factory(Role::class)->create(['name' => 'user']);
+        $this->assertTrue($role2->isDefaultRole());
+    }
 }

@@ -2,9 +2,10 @@
 
 namespace Tests;
 
-use Laravel\Dusk\TestCase as BaseTestCase;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use App\Models\User;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -31,5 +32,15 @@ abstract class DuskTestCase extends BaseTestCase
         return RemoteWebDriver::create(
             'http://localhost:9515', DesiredCapabilities::chrome()
         );
+    }
+
+    /**
+     * Get admin user
+     *
+     * @return \App\Models\User
+     */
+    protected function admin()
+    {
+        return app(User::class)->where('name', '=', config('scaffold.admin_name'))->first();
     }
 }

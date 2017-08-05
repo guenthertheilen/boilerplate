@@ -15,6 +15,8 @@ class Role extends Model
         'name'
     ];
 
+    private $defaultRoleName = 'user';
+
     /**
      * A Role can have many users.
      *
@@ -44,7 +46,7 @@ class Role extends Model
     public function attachPermission($permission)
     {
         if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->first();
+            $permission = app(Permission::class)->where('name', '=', $permission)->first();
         }
 
         if (!$this->hasPermission($permission)) {
@@ -89,6 +91,17 @@ class Role extends Model
      */
     public function defaultRole()
     {
-        return $this->firstOrCreate(['name' => 'user']);
+        return $this->firstOrCreate(['name' => $this->defaultRoleName]);
+    }
+
+    /**
+     * Check if role is default role
+     *
+     * @return bool
+     */
+    public function isDefaultRole()
+    {
+        return $this->name == $this->defaultRoleName;
+
     }
 }

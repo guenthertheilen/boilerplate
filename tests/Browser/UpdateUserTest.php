@@ -23,7 +23,8 @@ class UpdateUserTest extends DuskTestCase
             'name' => 'Jimmy McGill',
             'email' => 'jimmy@example.com'
         ]);
-        $this->admin = app(User::class)->where('name', '=', config('scaffold.admin_name'))->first();
+
+        $this->admin = $this->admin();
     }
 
 

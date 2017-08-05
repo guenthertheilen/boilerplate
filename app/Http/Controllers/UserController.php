@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create')->with(['roles' => Role::all()]);
     }
 
     /**
@@ -52,7 +52,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->user->create($request->only(['name', 'email', 'password']));
+        $data = array_merge(
+            $request->only(['name', 'email']),
+            ['password' => 'secret']  // TODO
+        );
+
+        $user = $this->user->create($data);
+
+        $roles = array_merge(
+            $request->get('roles') ?: [],
+            [app(Role::class)->defaultRole()->id]
+        );
+
+        $user->roles()->sync($roles);
 
         return redirect(route('user.index'));
     }
