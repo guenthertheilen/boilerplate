@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature\AccessControl;
+namespace Tests\Feature\Users;
 
 use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class UserRegistrationTest extends TestCase
+class RegisterUsersTest extends TestCase
 {
     use DatabaseMigrations;
 

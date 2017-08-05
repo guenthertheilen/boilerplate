@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\AccessControl;
+namespace Tests\Feature\Authorization;
 
 use App\Models\Permission;
 use App\Models\Role;
@@ -9,7 +9,7 @@ use App\Services\Authorizer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class AuthorizationTest extends TestCase
+class AuthorizeRequestsTest extends TestCase
 {
     use DatabaseMigrations;
 

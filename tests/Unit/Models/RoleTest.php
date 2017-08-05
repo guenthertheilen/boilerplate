@@ -62,8 +62,7 @@ class RoleTest extends TestCase
     /** @test */
     function it_gets_default_role()
     {
-        $role = new Role();
-        $default = $role->defaultRole()->toArray();
+        $default = app(Role::class)->defaultRole()->toArray();
 
         $this->assertEquals('user', $default['name']);
     }
@@ -73,8 +72,7 @@ class RoleTest extends TestCase
     {
         $this->assertDatabaseMissing('roles', ['name' => 'user']);
 
-        $role = new Role();
-        $default = $role->defaultRole()->toArray();
+        $default = app(Role::class)->defaultRole()->toArray();
 
         $this->assertDatabaseHas('roles', ['id' => $default['id'], 'name' => 'user']);
     }
@@ -84,10 +82,9 @@ class RoleTest extends TestCase
     {
         $this->assertDatabaseMissing('roles', ['name' => 'user']);
 
-        $role = new Role();
-        $role->defaultRole()->toArray();
-        $role->defaultRole()->toArray();
+        app(Role::class)->defaultRole();
+        app(Role::class)->defaultRole();
 
-        $this->assertCount(1, $role->where(['name' => 'user'])->get());
+        $this->assertCount(1, app(Role::class)->where(['name' => 'user'])->get());
     }
 }

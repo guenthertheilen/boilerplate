@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\AccessControl;
+namespace Tests\Feature\Authorization;
 
 use App\Models\User;
 use App\Services\Authorizer;
