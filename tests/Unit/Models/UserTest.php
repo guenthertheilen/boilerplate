@@ -6,20 +6,11 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
-
-    /** @test */
-    function it_has_roles()
-    {
-        $user = factory(User::class)->create();
-
-        $this->assertInstanceOf(Collection::class, $user->roles);
-    }
 
     /** @test */
     function it_attaches_role_to_user()

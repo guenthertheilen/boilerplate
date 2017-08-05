@@ -5,20 +5,11 @@ namespace Tests\Unit\Models;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class PermissionTest extends TestCase
 {
     use DatabaseMigrations;
-
-    /** @test */
-    function it_has_permissions()
-    {
-        $permission = factory(Permission::class)->create();
-
-        $this->assertInstanceOf(Collection::class, $permission->roles);
-    }
 
     /** @test */
     function it_gets_attached_roles_in_alphabetical_order_as_comma_seperated_string()

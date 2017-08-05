@@ -171,7 +171,7 @@ class UserRegistrationTest extends TestCase
             'password_confirmation' => 'secret'
         ]);
 
-        $user = User::whereName('John Doe')->first();
+        $user = app(User::class)->where('name', '=', 'John Doe')->first();
 
         $this->assertTrue($user->hasRole('user'));
     }

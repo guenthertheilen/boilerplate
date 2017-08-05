@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class UserLoginTest extends TestCase
 {
+    use DatabaseMigrations;
+
     protected function setUp()
     {
         parent::setUp();
@@ -18,8 +20,6 @@ class UserLoginTest extends TestCase
             'password' => bcrypt('secret')
         ]);
     }
-
-    use DatabaseMigrations;
 
     /** @test */
     function it_logs_in_user_with_valid_crendentials()

@@ -3,10 +3,8 @@
 namespace Tests\Feature\AccessControl;
 
 use App\Models\Role;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class RolesTest extends TestCase
 {
@@ -41,5 +39,4 @@ class RolesTest extends TestCase
             ->get(route('role.index'))
             ->assertSee(route('role.edit', $role->id));
     }
-
 }

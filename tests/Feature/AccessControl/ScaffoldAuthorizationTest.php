@@ -32,7 +32,7 @@ class ScaffoldAuthorizationTest extends TestCase
             'password' => config('scaffold.admin_password')
         ]));
 
-        $admin = User::where('name', '=', config('scaffold.admin_name'))->first();
+        $admin = app(User::class)->where('name', '=', config('scaffold.admin_name'))->first();
         $this->assertTrue($admin->hasRole('admin'));
     }
 
@@ -63,7 +63,7 @@ class ScaffoldAuthorizationTest extends TestCase
             'user.update',
         ];
 
-        $this->actingAs(User::where('name', '=', config('scaffold.admin_name'))->first());
+        $this->actingAs(app(User::class)->where('name', '=', config('scaffold.admin_name'))->first());
 
         foreach ($adminPermissions as $adminPermission) {
             $this->assertTrue(app(Authorizer::class)->allows($adminPermission));
