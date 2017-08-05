@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1 class="title">@lang('Users')</h1>
+
     <table class="table">
         <thead>
         <tr>

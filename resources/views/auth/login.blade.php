@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="column is-6 is-offset-3">
+    <h1 class="title">@lang('Login')</h1>
 
-        <h1 class="title">@lang('Login')</h1>
+    <div class="column is-6 is-offset-3">
 
         <form method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
@@ -44,13 +44,13 @@
                 </label>
             </div>
 
-            <div class="field">
+            <div class="field is-pulled-right">
                 <div class="control">
-                    <button class="button is-primary">@lang('Login')</button>
+                    <button class="button is-primary is-pulled-right">@lang('Login')</button>
                 </div>
+                <a href="{{ route('password.request') }}" class="button is-link is-small is-paddingless">@lang('Forgot Your Password?')</a>
             </div>
 
-            <a href="{{ route('password.request') }}" class="button is-link is-small">@lang('Forgot Your Password?')</a>
         </form>
     </div>
 @endsection

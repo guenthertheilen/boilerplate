@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="column is-6 is-offset-3">
+    <h1 class="title">@lang('Register')</h1>
 
-        <h1 class="title">@lang('Register')</h1>
+    <div class="column is-6 is-offset-3">
 
         <form method="POST" action="{{ route('register') }}">
             {{ csrf_field() }}
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="field">
+            <div class="field is-pulled-right">
                 <div class="control">
                     <button class="button is-primary">@lang('Register')</button>
                 </div>
