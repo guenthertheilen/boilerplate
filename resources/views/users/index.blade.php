@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="title">@lang('Users')</h1>
+    <h1 class="title is-pulled-left">@lang('Users')</h1>
+
+    <a href="{{ route('user.create') }}" class="button is-primary is-pulled-right">@lang('Add User')</a>
 
     <table class="table">
         <thead>
@@ -29,4 +31,9 @@
         @endforeach
         </tbody>
     </table>
+
+    @if(count($users) > 10)
+        <a href="{{ route('user.create') }}" class="button is-primary is-pulled-right">@lang('Add User')</a>
+    @endif
+
 @endsection

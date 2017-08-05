@@ -11,6 +11,13 @@ class CreateUsersTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
+    function it_shows_link_to_create_user()
+    {
+        $this->get(route('user.index'))
+            ->assertSee(route('user.create'));
+    }
+
+    /** @test */
     function it_adds_new_user()
     {
         $this->post(route('user.store'), [
