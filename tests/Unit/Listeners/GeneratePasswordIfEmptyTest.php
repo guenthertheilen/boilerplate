@@ -15,7 +15,8 @@ class GeneratePasswordIfEmptyTest extends TestCase
     {
         $user = Mockery::mock(User::class);
         $user->shouldReceive('getAttribute')->with('password')->once()->andReturn('');
-        $user->shouldReceive('update')->with(['password' => 'foo'])->once();
+
+        $user->shouldReceive('update')->once();
 
         $listener = new GeneratePasswordIfEmpty();
         $listener->handle(new UserCreated($user));

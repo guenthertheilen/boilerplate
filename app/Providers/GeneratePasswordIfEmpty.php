@@ -24,7 +24,7 @@ class GeneratePasswordIfEmpty
     public function handle(UserCreated $event)
     {
         if (empty($event->user->getAttribute('password'))) {
-            $event->user->update(['password' => 'foo']);
+            $event->user->update(['password' => bcrypt(str_random())]);
         }
     }
 }
