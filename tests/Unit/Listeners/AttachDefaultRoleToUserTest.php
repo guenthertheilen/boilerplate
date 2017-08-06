@@ -18,7 +18,7 @@ class AttachDefaultRoleToUserTest extends TestCase
         $user = Mockery::mock(User::class);
         $role = Mockery::mock(Role::class);
         $defaultRole = Mockery::mock(Role::class);
-        
+
         $role->shouldReceive('defaultRole')->once()->andReturn($defaultRole);
         $user->shouldReceive('attachRole')->with($defaultRole)->once();
 
