@@ -58,13 +58,7 @@ class UserController extends Controller
         );
 
         $user = $this->user->create($data);
-
-        $roles = array_merge(
-            $request->get('roles') ?: [],
-            [app(Role::class)->defaultRole()->id]
-        );
-
-        $user->roles()->sync($roles);
+        $user->roles()->syncWithoutDetaching($request->get('roles'));
 
         return redirect(route('user.index'));
     }
