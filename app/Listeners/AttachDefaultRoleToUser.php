@@ -21,12 +21,10 @@ class AttachDefaultRoleToUser
     /**
      * Create the event listener.
      *
-     * @param User $user
      * @param Role $role
      */
-    public function __construct(User $user, Role $role)
+    public function __construct(Role $role)
     {
-        $this->user = $user;
         $this->role = $role;
     }
 
