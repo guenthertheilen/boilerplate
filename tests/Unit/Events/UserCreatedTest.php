@@ -32,16 +32,12 @@ class UserCreatedTest extends TestCase
     /** @test */
     function it_calls_listener_to_attach_default_role()
     {
-        $this->listenerDefaultRole->shouldHaveReceived('handle')->with(Mockery::on(function ($event) {
-            return $event->user == $this->user;
-        }))->once();
+        $this->listenerDefaultRole->shouldHaveReceived('handle')->once();
     }
 
     /** @test */
     function it_calls_listener_to_generate_password_if_empty()
     {
-        $this->listenerGeneratePassword->shouldHaveReceived('handle')->with(Mockery::on(function ($event) {
-            return $event->user == $this->user;
-        }))->once();
+        $this->listenerGeneratePassword->shouldHaveReceived('handle')->once();
     }
 }
