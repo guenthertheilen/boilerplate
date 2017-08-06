@@ -22,7 +22,7 @@ class GeneratePasswordIfEmptyTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_change_password_if_not_empty()
+    function it_does_not_change_password_if_it_is_already_set()
     {
         $user = Mockery::mock(User::class);
         $user->shouldReceive('getAttribute')->with('password')->once()->andReturn('foobar');
