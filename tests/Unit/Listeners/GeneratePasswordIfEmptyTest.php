@@ -8,5 +8,4 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GeneratePasswordIfEmptyTest extends TestCase
 {
-   
 }
