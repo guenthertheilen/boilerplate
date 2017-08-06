@@ -45,6 +45,4 @@ class CreateUserTest extends DuskTestCase
         $this->assertTrue($user->hasRole(app(Role::class)->defaultRole()));
         $this->assertTrue($user->hasRole('admin'));
     }
-
-
 }
