@@ -16,7 +16,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserCreated::class => [
             AttachDefaultRoleToUser::class,
-            GeneratePasswordIfEmpty::class
         ],
     ];
 
