@@ -71,8 +71,7 @@ class RegisterController extends Controller
         return $this->user->create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'active' => 0
+                'password' => bcrypt($data['password'])
             ]
         );
     }
