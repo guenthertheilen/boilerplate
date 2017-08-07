@@ -26,8 +26,10 @@ class RegistrationTest extends DuskTestCase
     {
         $user = [
             'name' => 'foo',
-            'email' => 'foo@example.com'
+            'email' => 'foo@example.com',
+            'active' => 0
         ];
+
         $this->browse(function (Browser $browser) use ($user) {
             $browser->logout()
                 ->visit(route('register'))
@@ -36,12 +38,6 @@ class RegistrationTest extends DuskTestCase
                 ->type('password', 'secret')
                 ->type('password_confirmation', 'secret')
                 ->press(__('Register'))
-                ->assertPathIs('/')
-                ->logout()
-                ->visit('/')
-                ->type('email', $user['email'])
-                ->type('password', 'secret')
-                ->press(__('Login'))
                 ->assertPathIs('/');
         });
 

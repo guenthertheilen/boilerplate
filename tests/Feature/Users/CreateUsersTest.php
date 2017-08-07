@@ -27,7 +27,11 @@ class CreateUsersTest extends TestCase
             'email' => 'foo@bar.com'
         ]);
 
-        $this->assertDatabaseHas('users', ['name' => 'Foo Bar', 'email' => 'foo@bar.com']);
+        $this->assertDatabaseHas('users', [
+            'name' => 'Foo Bar',
+            'email' => 'foo@bar.com',
+            'active' => 0
+        ]);
     }
 
     /** @test */

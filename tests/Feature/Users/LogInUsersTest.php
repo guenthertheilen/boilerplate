@@ -15,15 +15,18 @@ class LogInUsersTest extends TestCase
     {
         parent::setUp();
 
-        factory(User::class)->create([
-            'email' => 'foo@example.com',
-            'password' => bcrypt('secret')
-        ]);
+
     }
 
     /** @test */
-    function it_logs_in_user_with_valid_crendentials()
+    function it_logs_in_active_user_with_valid_crendentials()
     {
+        factory(User::class)->create([
+            'email' => 'foo@example.com',
+            'password' => bcrypt('secret'),
+            'active' => 1
+        ]);
+
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [
@@ -35,8 +38,33 @@ class LogInUsersTest extends TestCase
     }
 
     /** @test */
+    function it_does_not_log_in_inactive_user_with_valid_crendentials()
+    {
+        factory(User::class)->create([
+            'email' => 'foo@example.com',
+            'password' => bcrypt('secret'),
+            'active' => 0
+        ]);
+
+        $this->assertFalse(Auth::check());
+
+        $this->post(route('login'), [
+            'email' => 'foo@example.com',
+            'password' => 'secret'
+        ]);
+
+        $this->assertFalse(Auth::check());
+    }
+
+    /** @test */
     function it_does_not_log_in_user_with_invalid_email()
     {
+        factory(User::class)->create([
+            'email' => 'foo@example.com',
+            'password' => bcrypt('secret'),
+            'active' => 1
+        ]);
+
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [
@@ -50,6 +78,12 @@ class LogInUsersTest extends TestCase
     /** @test */
     function it_does_not_log_in_user_with_invalid_password()
     {
+        factory(User::class)->create([
+            'email' => 'foo@example.com',
+            'password' => bcrypt('secret'),
+            'active' => 1
+        ]);
+
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [

@@ -54,7 +54,10 @@ class UserController extends Controller
     {
         $data = array_merge(
             $request->only(['name', 'email']),
-            ['password' => '']
+            [
+                'password' => '',
+                'active' => 0
+            ]
         );
 
         $user = $this->user->create($data);

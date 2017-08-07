@@ -23,7 +23,8 @@ class RegisterUsersTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'John Doe',
-            'email' => 'johndoe@example.com'
+            'email' => 'johndoe@example.com',
+            'active' => 0
         ]);
 
         $this->assertTrue(Auth::attempt([
