@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Users;
 
+use App\Events\UserCreated;
 use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class RegisterUsersTest extends TestCase
@@ -31,6 +33,21 @@ class RegisterUsersTest extends TestCase
             'email' => 'johndoe@example.com',
             'password' => 'secret'
         ]));
+    }
+
+    /** @test */
+    function it_dispatches_event_after_registering_user()
+    {
+        Event::fake();
+
+        $this->post(route('register'), [
+            'name' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        Event::assertDispatched(UserCreated::class);
     }
 
     /** @test */
