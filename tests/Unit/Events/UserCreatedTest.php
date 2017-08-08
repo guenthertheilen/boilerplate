@@ -4,6 +4,7 @@ namespace Tests\Unit\Events;
 
 use App\Events\UserCreated;
 use App\Listeners\AttachDefaultRoleToUser;
+use App\Listeners\CreateActivationToken;
 use App\Models\User;
 use Mockery;
 use Tests\TestCase;
@@ -11,6 +12,7 @@ use Tests\TestCase;
 class UserCreatedTest extends TestCase
 {
     private $listenerDefaultRole;
+    private $listenerActivationToken;
     private $user;
 
     protected function setUp()
@@ -20,6 +22,9 @@ class UserCreatedTest extends TestCase
         $this->listenerDefaultRole = Mockery::spy(AttachDefaultRoleToUser::class);
         app()->instance(AttachDefaultRoleToUser::class, $this->listenerDefaultRole);
 
+        $this->listenerActivationToken = Mockery::spy(CreateActivationToken::class);
+        app()->instance(CreateActivationToken::class, $this->listenerActivationToken);
+
         $this->user = factory(User::class)->make();
         event(new UserCreated($this->user));
     }
@@ -28,5 +33,11 @@ class UserCreatedTest extends TestCase
     function it_calls_listener_to_attach_default_role()
     {
         $this->listenerDefaultRole->shouldHaveReceived('handle')->once();
+    }
+
+    /** @test */
+    function it_calls_listener_to_create_activation_token()
+    {
+        $this->listenerActivationToken->shouldHaveReceived('handle')->once();
     }
 }

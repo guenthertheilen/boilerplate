@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\UserCreated;
 use App\Listeners\AttachDefaultRoleToUser;
+use App\Listeners\CreateActivationToken;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +17,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserCreated::class => [
             AttachDefaultRoleToUser::class,
+            CreateActivationToken::class,
         ],
     ];
 

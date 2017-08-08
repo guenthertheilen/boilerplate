@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -157,5 +158,19 @@ class UserTest extends TestCase
         $user->attachRole($role2);
 
         $this->assertEquals('abc, user, xyz', $user->rolesAsString());
+    }
+
+    /** @test */
+    function it_creates_activation_token()
+    {
+        Event::fake();
+        $user = factory(User::class)->create();
+
+        $this->assertNull($user->getAttribute('activation_token'));
+
+        $user->createActivationToken();
+
+        $user->fresh();
+        $this->assertNotNull($user->getAttribute('activation_token'));
     }
 }

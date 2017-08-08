@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active'
+        'name', 'email', 'password', 'active', 'activation_token'
     ];
 
     /**
@@ -56,7 +56,7 @@ class User extends Authenticatable
     public function attachRole($role)
     {
         if (is_string($role)) {
-            $role = Role::whereName($role)->first();
+            $role = app(Role::class)->where('name', '=', $role)->first();
         }
 
         if (!$this->hasRole($role)) {
@@ -144,6 +144,17 @@ class User extends Authenticatable
             ->pluck('name')
             ->sort()
             ->implode(', ');
+    }
+
+    public function createActivationToken()
+    {
+        do {
+            $token = str_random(32);
+        } while (static::where("registration_token", "=", $token)->first() instanceof $this);
+
+        $this->update(
+            ['activation_token' => $token]
+        );
     }
 
     /**
