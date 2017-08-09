@@ -22,10 +22,11 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+// Activate User
+Route::get('activate/{token}', 'UserActivationController@update')->name('user.activate');
+
 // Route only for testing purposes
 Route::get("/A1IboUB4N6w27hLNMeKnecsl7obntg", function () {
     return "gtnbo7lscenKeMNLh72w6N4BUobI1A";
 })->middleware(['authenticate', 'authorize'])
     ->name("A1IboUB4N6w27hLNMeKnecsl7obntg");
-
-

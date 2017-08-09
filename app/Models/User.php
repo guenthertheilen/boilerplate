@@ -118,6 +118,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is activated
+     *
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active == 1;
+    }
+
+    /**
      * Check if the User has Permission by given name.
      *
      * @param $permission
