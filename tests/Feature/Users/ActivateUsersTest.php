@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Users;
 
+use App\Events\UserActivated;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -13,7 +16,9 @@ class ActivateUsersTest extends TestCase
     /** @test */
     function it_activates_user()
     {
-        $user = factory(User::class)->create(['active' => 0]);
+        Event::fake();
+
+        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
 
         $this->assertFalse($user->isActive());
 
@@ -24,14 +29,14 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_clears_activation_token_after_activation()
+    function it_dispatches_event_after_activation()
     {
-        $user = factory(User::class)->create(['active' => 0]);
+        Event::fake();
+
+        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foobar']);
 
         $this->get(route('user.activate', $user->activation_token));
 
-        $user->refresh();
-
-        $this->assertEmpty($user->getAttribute('activation_token'));
+        Event::assertDispatched(UserActivated::class);
     }
 }
