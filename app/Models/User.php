@@ -146,6 +146,11 @@ class User extends Authenticatable
             ->implode(', ');
     }
 
+    /**
+     * Create token used to activate user.
+     *
+     * @return void
+     */
     public function createActivationToken()
     {
         do {
