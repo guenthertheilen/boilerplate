@@ -14,7 +14,7 @@ class UserTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_attaches_role_to_user()
+    public function itAttachesRoleToUser()
     {
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
@@ -25,7 +25,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_attaches_role_by_name_to_user()
+    public function itAttachesRoleByNameToUser()
     {
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create(['name' => 'foobar']);
@@ -36,7 +36,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_attach_same_role_more_than_once()
+    public function itDoesNotAttachSameRoleMoreThanOnce()
     {
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
@@ -49,7 +49,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_detaches_role_from_user()
+    public function itDetachesRoleFromUser()
     {
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
@@ -61,7 +61,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_makes_sure_user_keeps_at_least_one_role()
+    public function itMakesSureUserKeepsAtLeastOneRole()
     {
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
@@ -80,7 +80,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_user_has_given_role()
+    public function itChecksIfUserHasGivenRole()
     {
         $user = factory(User::class)->create();
         $role1 = factory(Role::class)->create();
@@ -93,7 +93,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_user_has_given_role_by_name_of_role()
+    public function itChecksIfUserHasGivenRoleByNameOfRole()
     {
         $user = factory(User::class)->create();
         $role1 = factory(Role::class)->create(['name' => 'foo']);
@@ -106,7 +106,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_user_is_admin()
+    public function itChecksIfUserIsAdmin()
     {
         $user = factory(User::class)->create();
         $adminRole = factory(Role::class)->create(['name' => 'admin']);
@@ -119,7 +119,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_user_is_not_admin()
+    public function itChecksIfUserIsNotAdmin()
     {
         $user = factory(User::class)->create();
         $adminRole = factory(Role::class)->create(['name' => 'admin']);
@@ -132,7 +132,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_user_has_permission_by_name()
+    public function itChecksIfUserHasPermissionByName()
     {
         $permission = factory(Permission::class)->create(['name' => 'foo']);
 
@@ -147,7 +147,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_gets_attached_roles_in_alphabetical_order_as_comma_seperated_string()
+    public function itGetsAttachedRolesInAlphabeticalOrderAsCommaSeperatedString()
     {
         $user = factory(User::class)->create();
 
@@ -161,7 +161,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_creates_activation_token()
+    public function itCreatesActivationToken()
     {
         Event::fake();
         $user = factory(User::class)->create();
