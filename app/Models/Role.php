@@ -102,6 +102,5 @@ class Role extends Model
     public function isDefaultRole()
     {
         return $this->name == $this->defaultRoleName;
-
     }
 }
