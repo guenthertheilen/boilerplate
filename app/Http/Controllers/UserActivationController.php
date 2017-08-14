@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserActivated;
 use App\Models\User;
 
 class UserActivationController extends Controller
@@ -21,7 +20,6 @@ class UserActivationController extends Controller
             'active' => 1
         ]);
 
-        event(UserActivated::class);
 
         return redirect(route('login'));
     }
