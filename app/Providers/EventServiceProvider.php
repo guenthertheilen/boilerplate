@@ -4,10 +4,9 @@ namespace App\Providers;
 
 use App\Events\UserActivated;
 use App\Events\UserCreated;
-use App\Listeners\AskUserForPasswordIfNotSet;
 use App\Listeners\AttachDefaultRoleToUser;
 use App\Listeners\CreateActivationToken;
-use App\Listeners\DeleteActivationToken;
+use App\Listeners\SendActivationMail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -21,11 +20,8 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [
             AttachDefaultRoleToUser::class,
             CreateActivationToken::class,
+	    SendActivationMail::class
         ],
-        UserActivated::class => [
-            AskUserForPasswordIfNotSet::class,
-            DeleteActivationToken::class
-        ]
     ];
 
     /**

@@ -5,6 +5,7 @@ namespace Tests\Unit\Events;
 use App\Events\UserCreated;
 use App\Listeners\AttachDefaultRoleToUser;
 use App\Listeners\CreateActivationToken;
+use App\Listeners\SendActivationMail;
 use App\Models\User;
 use Mockery;
 use Tests\TestCase;
@@ -25,6 +26,9 @@ class UserCreatedTest extends TestCase
         $this->listenerActivationToken = Mockery::spy(CreateActivationToken::class);
         app()->instance(CreateActivationToken::class, $this->listenerActivationToken);
 
+	$this->listenerSendActivationMail = Mockery::spy(SendActivationMail::class);
+	app()->instance(SendActivationMail::class, $this->listenerSendActivationMail);
+
         $this->user = factory(User::class)->make();
         event(new UserCreated($this->user));
     }
@@ -39,5 +43,11 @@ class UserCreatedTest extends TestCase
     function it_calls_listener_to_create_activation_token()
     {
         $this->listenerActivationToken->shouldHaveReceived('handle')->once();
+    }
+
+    /** @test */
+    function it_calls_listener_to_send_activation_mail()
+    {
+	$this->listenerSendActivationMail->shouldHaveReceived('handle')->once();
     }
 }
