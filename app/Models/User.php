@@ -98,6 +98,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user password is set
+     *
+     * @return bool
+     */
+    public function hasNoPassword()
+    {
+	    return $this->password == '';
+    }
+
+    /**
      * Check if the user has Role named 'admin'.
      *
      * @return bool

@@ -183,4 +183,14 @@ class UserTest extends TestCase
         $user->fresh();
         $this->assertNotNull($user->getAttribute('activation_token'));
     }
+
+    /** @test */
+    function it_checks_if_user_password_is_set()
+    {
+	    $user1 = factory(User::class)->create(['password' => 'foo']);
+	    $user2 = factory(User::class)->create(['password' => '']);
+
+	    $this->assertFalse($user1->hasNoPassword());
+	    $this->assertTrue($user2->hasNoPassword());
+    }
 }
