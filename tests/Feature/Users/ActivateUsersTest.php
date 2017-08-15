@@ -37,7 +37,7 @@ class ActivateUsersTest extends TestCase
     /** @test */
     function it_sets_user_password()
     {
-	    $this->markTestIncomplete();
+        $this->markTestIncomplete();
     }
 
     /** @test */
