@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
@@ -29,6 +30,6 @@ class ActivateUserTest extends DuskTestCase
         $user->refresh();
 
         $this->assertTrue($user->isActive());
-        $this->asswerTrue(Auth::validate(['email' => $user->email, 'password' => 'my-new-password']));
+        $this->assertTrue(Auth::validate(['email' => $user->email, 'password' => 'my-new-password']));
     }
 }

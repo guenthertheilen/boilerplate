@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserPasswordController extends Controller
 {
@@ -23,7 +24,7 @@ class UserPasswordController extends Controller
      */
     public function create($token)
     {
-        //
+        return view('passwords.create')->with('token', $token);
     }
 
     /**
@@ -34,7 +35,10 @@ class UserPasswordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       app(User::class)->where('activation_token', '=', $request->get('activation_token'))->firstOrFail()
+           ->update(['password' => bcrypt($request->get('password'))]);
+
+       return redirect(route('user.activate', $request->get('activation_token')));
     }
 
     /**

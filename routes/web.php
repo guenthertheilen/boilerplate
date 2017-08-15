@@ -25,6 +25,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Activate User
 Route::get('activate/{token}', 'UserActivationController@update')->name('user.activate');
 Route::get('password/create/{token}', 'UserPasswordController@create')->name('password.create');
+Route::post('password/store', 'UserPasswordController@store')->name('password.store');
 
 // Route only for testing purposes
 Route::get("/A1IboUB4N6w27hLNMeKnecsl7obntg", function () {
