@@ -17,7 +17,8 @@ class UserActivationController extends Controller
         $user = app(User::class)->where('activation_token', '=', $token)->firstOrFail();
 
         $user->update([
-            'active' => 1
+		'active' => 1,
+		'activation_token' => ''
         ]);
 
 

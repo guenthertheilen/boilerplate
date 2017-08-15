@@ -34,10 +34,13 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_deletes_activation_token_after_user_is_activated() {
-	    $this->markTestIncomplete(
-		              'This test has not been implemented yet.'
-			              );
+    function it_deletes_activation_token_after_user_is_activated() 
+    {
+        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
+
+        $this->get(route('user.activate', $user->activation_token));
+
+        $this->assertEquals('', $user->fresh()->activation_token);
     }
 
 }
