@@ -12,3 +12,5 @@ yarn-error.log
 .env
 .env.dusk.local
 .*.swp
+tags
+tags.vendors
