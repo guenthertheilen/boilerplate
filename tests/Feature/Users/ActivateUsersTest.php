@@ -37,7 +37,27 @@ class ActivateUsersTest extends TestCase
     /** @test */
     function it_sets_user_password()
     {
-        $this->markTestIncomplete();
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => $user->activation_token,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertRedirect(route('user.activate', $user->activation_token));
+    }
+    
+    /** @test */
+    function it_does_not_set_user_password_with_invalid_email()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => '', 
+                'activation_token' => $user->activation_token,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertRedirect(route('password.create', $user->activation_token));
     }
 
     /** @test */

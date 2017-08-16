@@ -7,15 +7,6 @@ use App\Models\User;
 
 class UserPasswordController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +26,10 @@ class UserPasswordController extends Controller
      */
     public function store(Request $request)
     {
-       app(User::class)->where('activation_token', '=', $request->get('activation_token'))->firstOrFail()
+        app(User::class)->where([
+                ['activation_token', '=', $request->get('activation_token')],
+                ['email', '=', $request->get('email')]
+            ])->firstOrFail()
            ->update(['password' => bcrypt($request->get('password'))]);
 
        return redirect(route('user.activate', $request->get('activation_token')));
