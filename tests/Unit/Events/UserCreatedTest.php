@@ -26,8 +26,8 @@ class UserCreatedTest extends TestCase
         $this->listenerActivationToken = Mockery::spy(CreateActivationToken::class);
         app()->instance(CreateActivationToken::class, $this->listenerActivationToken);
 
-	$this->listenerSendActivationMail = Mockery::spy(SendActivationMail::class);
-	app()->instance(SendActivationMail::class, $this->listenerSendActivationMail);
+        $this->listenerSendActivationMail = Mockery::spy(SendActivationMail::class);
+        app()->instance(SendActivationMail::class, $this->listenerSendActivationMail);
 
         $this->user = factory(User::class)->make();
         event(new UserCreated($this->user));
@@ -48,6 +48,6 @@ class UserCreatedTest extends TestCase
     /** @test */
     function it_calls_listener_to_send_activation_mail()
     {
-	$this->listenerSendActivationMail->shouldHaveReceived('handle')->once();
+        $this->listenerSendActivationMail->shouldHaveReceived('handle')->once();
     }
 }
