@@ -32,18 +32,7 @@ class UserPasswordController extends Controller
             ])->firstOrFail()
            ->update(['password' => bcrypt($request->get('password'))]);
 
-       return redirect(route('user.activate', $request->get('activation_token')));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect(route('user.activate', $request->get('activation_token')));
     }
 
     /**
@@ -65,17 +54,6 @@ class UserPasswordController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
