@@ -26,12 +26,12 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_asks_user_to_set_password_if_no_password_is_set_yet() 
+    function it_asks_user_to_set_password_if_no_password_is_set_yet()
     {
-	    $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo', 'password' => '']);
+        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo', 'password' => '']);
 
-	    $this->get(route('user.activate', $user->activation_token))
-		    ->assertRedirect(route('password.create', $user->activation_token));
+        $this->get(route('user.activate', $user->activation_token))
+            ->assertRedirect(route('password.create', $user->activation_token));
     }
 
     /** @test */
@@ -53,7 +53,7 @@ class ActivateUsersTest extends TestCase
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
         $this->post(route('password.store'), [
-                'email' => '', 
+                'email' => '',
                 'activation_token' => $user->activation_token,
                 'password' => 'new-password',
                 'password_confirmation' => 'new-password'
@@ -61,7 +61,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_deletes_activation_token_after_user_is_activated() 
+    function it_deletes_activation_token_after_user_is_activated()
     {
         $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
 
@@ -69,5 +69,4 @@ class ActivateUsersTest extends TestCase
 
         $this->assertEquals('', $user->fresh()->activation_token);
     }
-
 }
