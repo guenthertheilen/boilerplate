@@ -49,7 +49,7 @@ class ActivateUsersTest extends TestCase
     }
     
     /** @test */
-    public function itDoesNotSetUserPasswordWithInvalidEmail()
+    public function itDoesNotSetUserPasswordWithoutEmail()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -58,8 +58,122 @@ class ActivateUsersTest extends TestCase
                 'activation_token' => $user->activation_token,
                 'password' => 'new-password',
                 'password_confirmation' => 'new-password'
-            ]);
-        $this->assertTrue(false);
+            ])->assertSessionHasErrors(['email']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordWithInvalidEmail()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => 'not-an-email',
+                'activation_token' => $user->activation_token,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertSessionHasErrors(['email']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfTokenIsEmpty()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => '',
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertSessionHasErrors(['activation_token']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfTokenDoesNotExist()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '', 'activation_token' => 'foo']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => 'bar',
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertSessionHasErrors(['email']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfEmailDoesNotExist()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '', 'email' => 'foo@example.com']);
+
+        $this->post(route('password.store'), [
+                'email' => 'bar@example.com',
+                'activation_token' => $user->activation_token,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertSessionHasErrors(['email']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfEmailAndTokenDoNotMatch()
+    {
+        factory(User::class)->create([
+            'active' => 0,
+            'password' => '',
+            'email' => 'foo@example.com',
+            'activation_token' => 'foo'
+        ]);
+        factory(User::class)->create([
+            'active' => 0,
+            'password' => '',
+            'email' => 'bar@example.com',
+            'activation_token' => 'bar'
+        ]);
+
+        $this->post(route('password.store'), [
+                'email' => 'foo@example.com',
+                'activation_token' => 'bar',
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password'
+            ])->assertSessionHasErrors(['email']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfPasswordIsNotConfirmed()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => $user->activation_token,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password-foo'
+            ])->assertSessionHasErrors(['password']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfPasswordIsEmpty()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => $user->activation_token,
+                'password' => '',
+                'password_confirmation' => ''
+            ])->assertSessionHasErrors(['password']);
+    }
+
+    /** @test */
+    public function itDoesNotSetUserPasswordIfPasswordIsTooShort()
+    {
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
+
+        $this->post(route('password.store'), [
+                'email' => $user->email,
+                'activation_token' => $user->activation_token,
+                'password' => 'short',
+                'password_confirmation' => 'short'
+            ])->assertSessionHasErrors(['password']);
     }
 
     /** @test */

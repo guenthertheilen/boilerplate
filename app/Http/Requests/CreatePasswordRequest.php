@@ -24,7 +24,9 @@ class CreatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-//            'email' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+            'activation_token' => 'required'
         ];
     }
 }
