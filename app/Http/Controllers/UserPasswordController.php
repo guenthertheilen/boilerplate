@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CreatePasswordRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserPasswordController extends Controller
 {
@@ -21,10 +22,10 @@ class UserPasswordController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CreatePasswordRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePasswordRequest $request)
     {
         app(User::class)->where([
                 ['activation_token', '=', $request->get('activation_token')],

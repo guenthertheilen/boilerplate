@@ -13,11 +13,11 @@ class ActivateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_activates_user_that_has_no_password_yet()
+    public function itActivatesUserThatHasNoPasswordYet()
     {
         $user = factory(User::class)->create(['password' => '', 'active' => 0]);
         
-        $this->browse(function (Browser $browser) use($user) {
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->visit(route('user.activate', $user->activation_token))
                 ->assertRouteIs('password.create', $user->activation_token)
                 ->type('email', $user->email)

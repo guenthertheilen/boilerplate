@@ -2,18 +2,17 @@
 
 namespace Tests\Feature\Users;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
 use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ActivateUsersTest extends TestCase
 {
     use DatabaseMigrations;
 
     /** @test */
-    function it_activates_user()
+    public function itActivatesUser()
     {
         $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
 
@@ -26,7 +25,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_asks_user_to_set_password_if_no_password_is_set_yet()
+    public function itAsksUserToSetPasswordIfNoPasswordIsSetYet()
     {
         $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo', 'password' => '']);
 
@@ -35,7 +34,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_sets_user_password()
+    public function itSetsUserPassword()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -45,10 +44,12 @@ class ActivateUsersTest extends TestCase
                 'password' => 'new-password',
                 'password_confirmation' => 'new-password'
             ])->assertRedirect(route('user.activate', $user->activation_token));
+
+        $this->assertTrue(Auth::validate(['email' => $user->email, 'password' => 'new-password']));
     }
     
     /** @test */
-    function it_does_not_set_user_password_with_invalid_email()
+    public function itDoesNotSetUserPasswordWithInvalidEmail()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -57,11 +58,12 @@ class ActivateUsersTest extends TestCase
                 'activation_token' => $user->activation_token,
                 'password' => 'new-password',
                 'password_confirmation' => 'new-password'
-            ])->assertRedirect(route('password.create', $user->activation_token));
+            ]);
+        $this->assertTrue(false);
     }
 
     /** @test */
-    function it_deletes_activation_token_after_user_is_activated()
+    public function itDeletesActivationTokenAfterUserIsActivated()
     {
         $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
 
