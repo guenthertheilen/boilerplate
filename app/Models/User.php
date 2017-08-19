@@ -104,7 +104,7 @@ class User extends Authenticatable
      */
     public function hasNoPassword()
     {
-	    return $this->password == '';
+        return $this->password == '';
     }
 
     /**
