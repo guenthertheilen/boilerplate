@@ -2,28 +2,15 @@
 
 namespace App\Validators;
 
-use App\Models\Role;
-use Auth;
+use App\Models\User;
 
 class EmailAndTokenMatch
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        return $this->isNotEditingOwnRoles($parameters[0]) || $this->isNotRemovingAdminRole($value);
-    }
-
-    private function isNotEditingOwnRoles($userId)
-    {
-        return Auth::id() != $userId;
-    }
-
-    private function isNotRemovingAdminRole($roles)
-    {
-        return in_array($this->adminRoleId(), $roles);
-    }
-
-    private function adminRoleId()
-    {
-        return app(Role::class)->where('name', '=', 'admin')->pluck('id')->first();
+        return app(User::class)->where([
+            ['email', '=', $value],
+            ['activation_token', '=', $parameters[0]]
+        ])->exists();
     }
 }

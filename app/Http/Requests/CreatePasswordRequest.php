@@ -24,7 +24,7 @@ class CreatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|emailAndTokenMatch',
+            'email' => 'required|email|emailAndTokenMatch:' . $this->request->get('activation_token'),
             'password' => 'required|min:6|confirmed',
             'activation_token' => 'required'
         ];
