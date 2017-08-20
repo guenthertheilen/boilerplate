@@ -13,5 +13,6 @@ yarn-error.log
 .env.dusk.local
 .*.swp
 tags
-tags.vendors
+tags.lock
+tags.temp
 .php_cs.cache
