@@ -26,6 +26,6 @@ class SendActivationMail
      */
     public function handle(UserCreated $event)
     {
-        //
+        var_dump($event);
     }
 }

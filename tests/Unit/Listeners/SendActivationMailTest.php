@@ -2,17 +2,27 @@
 
 namespace Tests\Unit\Listeners;
 
+use App\Events\UserCreated;
+use App\Listeners\SendActivationMail;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SendActivationMailTest extends TestCase
 {
     /** @test */
     public function itSendsActivationMail()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        Mail::fake();
+        
+        $user = factory(User::class)->make();
+        $event = new SendActivationMail();
+        $event->handle(new UserCreated($user));
+
+        Mail::assertSent(ActivateAccount::class, function ($mail) use ($user) {
+            return $mail->hasTo($user->email);
+                                               $mail->hasCc('...') &&
+                                                                  $mail->hasBcc('...');
+        });
     }
 }
