@@ -3,8 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\UserCreated;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Mail\ActivateAccount;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class SendActivationMail
 {
@@ -26,6 +28,6 @@ class SendActivationMail
      */
     public function handle(UserCreated $event)
     {
-        var_dump($event);
+        Mail::to($event->user)->send(new ActivateAccount());
     }
 }

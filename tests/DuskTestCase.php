@@ -5,11 +5,18 @@ namespace Tests;
 use App\Models\User;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    public function setUp()
+    {
+        parent::setUp();
+        Mail::fake();
+    }
 
     /**
      * Prepare for Dusk test execution.

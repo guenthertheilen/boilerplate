@@ -11,7 +11,7 @@ class RegistrationTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_shows_registration_link_for_guest()
+    public function itShowsRegistrationLinkForGuest()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()
@@ -22,8 +22,9 @@ class RegistrationTest extends DuskTestCase
     }
 
     /** @test */
-    function it_registers_new_user()
+    public function itRegistersNewUser()
     {
+        // TODO: Fake mail sending possible?
         $user = [
             'name' => 'foo',
             'email' => 'foo@example.com',
