@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserCreated;
 use App\Mail\ActivateAccount;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 class SendActivationMail
@@ -23,11 +21,11 @@ class SendActivationMail
     /**
      * Handle the event.
      *
-     * @param  UserCreated  $event
+     * @param  UserCreated $event
      * @return void
      */
     public function handle(UserCreated $event)
     {
-        Mail::to($event->user)->send(new ActivateAccount());
+        Mail::to($event->user)->send(new ActivateAccount($event->user));
     }
 }
