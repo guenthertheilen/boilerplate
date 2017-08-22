@@ -3,53 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
 
 class RoleController extends Controller
 {
     private $role;
 
+    /**
+     * @param Role $role
+     */
     public function __construct(Role $role)
     {
         $this->role = $role;
     }
 
-    public function index(): View
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         return view('roles.index')->with('roles', $this->role->all());
     }
 
-    public function create(): Response
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         //
     }
 
-    public function store(Request $request): RedirectResponse
+    /**
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $this->role->create($request->only(['name']));
 
         return redirect(route('role.index'));
     }
 
-    public function show(int $id): Response
+    /**
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
         //
     }
 
-    public function edit(int $id): Response
+    /**
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         //
     }
 
-    public function update(Request $request, int $id): Response
+    /**
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         //
     }
 
-    public function destroy(int $id): Response
+    /**
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
         //
     }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Factory;
 
@@ -16,6 +15,10 @@ class RegisterController extends Controller
     private $factory;
     private $user;
 
+    /**
+     * @param Factory $factory
+     * @param User $user
+     */
     public function __construct(Factory $factory, User $user)
     {
         $this->middleware('guest');
@@ -25,8 +28,11 @@ class RegisterController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data): Validator
+    protected function validator(array $data)
     {
         return $this->factory->make($data, [
             'name' => 'required|string|max:255',
@@ -37,8 +43,11 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
+     *
+     * @param  array $data
+     * @return \App\Models\User
      */
-    protected function create(array $data): User
+    protected function create(array $data)
     {
         return $this->user->create([
                 'name' => $data['name'],
