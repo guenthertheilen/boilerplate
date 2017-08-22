@@ -182,6 +182,14 @@ class User extends Authenticatable
         );
     }
 
+    public function activate()
+    {
+        $this->update([
+            'active' => 1,
+            'activation_token' => ''
+        ]);
+    }
+
     /**
      * Check if User has role with given name.
      *

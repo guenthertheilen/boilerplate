@@ -6,24 +6,29 @@ use App\Models\User;
 
 class UserActivationController extends Controller
 {
+    private $user;
+
     /**
-     * Activate user
-     *
-     * @param $token
+     * @param User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @param String $token
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($token)
+    public function update(String $token)
     {
-        $user = app(User::class)->where('activation_token', '=', $token)->firstOrFail();
+        $inactiveUser = $this->user->where('activation_token', '=', $token)->firstOrFail();
 
-        if ($user->hasNoPassword()) {
+        if ($inactiveUser->hasNoPassword()) {
             return redirect(route('password.create', $token));
         }
 
-        $user->update([
-            'active' => 1,
-            'activation_token' => ''
-        ]);
+        $inactiveUser->activate();
 
         return redirect(route('login'));
     }
