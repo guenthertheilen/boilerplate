@@ -27,10 +27,12 @@ class Scaffold extends Command
      * @var User
      */
     private $user;
+
     /**
      * @var Role
      */
     private $role;
+
     /**
      * @var Permission
      */
@@ -63,6 +65,9 @@ class Scaffold extends Command
         $this->attachUserPermissions();
     }
 
+    /**
+     * Create all available permissions.
+     */
     private function createPermissions()
     {
         $permissions = [
@@ -95,11 +100,17 @@ class Scaffold extends Command
         }
     }
 
+    /**
+     * Create role named 'admin'.
+     */
     private function createAdminRole()
     {
         $this->role->create(['name' => 'admin']);
     }
 
+    /**
+     * Create user with 'admin' role. Name, Email and Password are read from config.
+     */
     private function createAdminUser()
     {
         $this->user->create([
@@ -110,6 +121,9 @@ class Scaffold extends Command
         ])->attachRole('admin');
     }
 
+    /**
+     * Attach default permissions to admin role.
+     */
     private function attachAdminPermissions()
     {
         $adminPermissions = [
@@ -143,6 +157,9 @@ class Scaffold extends Command
         }
     }
 
+    /**
+     * Attach default permission to user role.
+     */
     private function attachUserPermissions()
     {
         $this->role->where('name', '=', 'user')->first()

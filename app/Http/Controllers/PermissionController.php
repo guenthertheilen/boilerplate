@@ -2,25 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Permission;
+use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
-    /**
-     * @var Permission
-     */
-    private $permission;
-
-    /**
-     * PermissionController constructor.
-     * @param Permission $permission
-     */
-    public function __construct(Permission $permission)
-    {
-        $this->permission = $permission;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +14,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('permissions.index')->with('permissions', $this->permission->with('roles')->get());
+        return view('permissions.index', ['permissions' => Permission::with('roles')->get()]);
     }
 
     /**
@@ -49,7 +35,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->permission->create($request->only(['name']));
+        Permission::create($request->only(['name']));
 
         return redirect(route('permission.index'));
     }
@@ -73,7 +59,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('permissions.edit')->with('permission', $permission);
+        return view('permissions.edit', ['permission' => $permission]);
     }
 
     /**

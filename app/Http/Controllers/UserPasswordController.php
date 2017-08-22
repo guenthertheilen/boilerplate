@@ -12,11 +12,12 @@ class UserPasswordController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param $token
      * @return \Illuminate\Http\Response
      */
     public function create($token)
     {
-        return view('passwords.create')->with('token', $token);
+        return view('passwords.create', ['token' => $token]);
     }
 
     /**
@@ -27,11 +28,11 @@ class UserPasswordController extends Controller
      */
     public function store(CreatePasswordRequest $request)
     {
-        app(User::class)->where([
-                ['activation_token', '=', $request->get('activation_token')],
-                ['email', '=', $request->get('email')]
-            ])->firstOrFail()
-           ->update(['password' => bcrypt($request->get('password'))]);
+        User::where([
+            ['activation_token', '=', $request->get('activation_token')],
+            ['email', '=', $request->get('email')]
+        ])->firstOrFail()
+            ->update(['password' => bcrypt($request->get('password'))]);
 
         return redirect(route('user.activate', $request->get('activation_token')));
     }
@@ -39,7 +40,7 @@ class UserPasswordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -50,8 +51,8 @@ class UserPasswordController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

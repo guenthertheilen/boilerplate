@@ -10,28 +10,13 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * UserController constructor.
-     *
-     * @param User $user
-     */
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('users.index')->with('users', $this->user->with('roles')->get());
+        return view('users.index', ['users' => User::with('roles')->get()]);
     }
 
     /**
@@ -41,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create')->with(['roles' => Role::all()]);
+        return view('users.create', ['roles' => Role::all()]);
     }
 
     /**
@@ -57,7 +42,7 @@ class UserController extends Controller
             ['password' => '']
         );
 
-        $user = $this->user->create($data);
+        $user = User::create($data);
         $user->roles()->syncWithoutDetaching($request->get('roles'));
 
         return redirect(route('user.index'));
@@ -82,7 +67,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit')->with(['user' => $user, 'roles' => Role::all()]);
+        return view('users.edit', ['user' => $user, 'roles' => Role::all()]);
     }
 
     /**
@@ -96,7 +81,7 @@ class UserController extends Controller
     {
         // TODO: Replace by route model binding in L5.5
         // route model binding does not work in 5.4 with WithoutMiddleware in tests
-        $user = app(User::class)->find($id);
+        $user = User::find($id);
         $user->update($request->only(['name', 'email']));
         $user->roles()->sync($request->get('roles'));
 
