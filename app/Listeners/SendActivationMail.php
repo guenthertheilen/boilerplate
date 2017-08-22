@@ -8,10 +8,20 @@ use Illuminate\Mail\Mailer;
 
 class SendActivationMail
 {
+    private $mail;
+
+    public function __construct($mail = null)
+    {
+        if ($mail === null) {
+            $this->mail = app(Mailer::class);
+        } else {
+            $this->mail = $mail;
+        }
+    }
+
     public function handle(UserCreated $event)
     {
-        // TODO: Constructor injection?
-        app(Mailer::class)
+        $this->mail
             ->to($event->user)
             ->send(new ActivateAccount($event->user));
     }
