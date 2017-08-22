@@ -3,24 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
 class UserActivationController extends Controller
 {
     private $user;
 
-    /**
-     * @param User $user
-     */
     public function __construct(User $user)
     {
         $this->user = $user;
     }
 
-    /**
-     * @param String $token
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(String $token)
+    public function update(string $token): RedirectResponse
     {
         $inactiveUser = $this->user->where('activation_token', '=', $token)->firstOrFail();
 

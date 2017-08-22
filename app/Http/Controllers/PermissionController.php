@@ -3,80 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class PermissionController extends Controller
 {
     private $permission;
 
-    /**
-     * @param Permission $permission
-     */
     public function __construct(Permission $permission)
     {
         $this->permission = $permission;
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         return view('permissions.index')->with('permissions', $this->permission->with('roles')->get());
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): Response
     {
         //
     }
 
-    /**
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->permission->create($request->only(['name']));
 
         return redirect(route('permission.index'));
     }
 
-    /**
-     * @param  \App\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
+    public function show(Permission $permission): Response
     {
         //
     }
 
-    /**
-     * @param  \App\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
+    public function edit(Permission $permission): View
     {
         return view('permissions.edit')->with('permission', $permission);
     }
 
-    /**
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Permission $permission): Response
     {
         //
     }
 
-    /**
-     * @param  \App\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission): Response
     {
         //
     }

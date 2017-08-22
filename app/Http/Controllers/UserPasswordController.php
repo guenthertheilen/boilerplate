@@ -4,57 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePasswordRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class UserPasswordController extends Controller
 {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($token)
+    public function create(string $token): View
     {
         return view('passwords.create')->with('token', $token);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\CreatePasswordRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreatePasswordRequest $request)
+    public function store(CreatePasswordRequest $request): RedirectResponse
     {
         app(User::class)->where([
-                ['activation_token', '=', $request->get('activation_token')],
-                ['email', '=', $request->get('email')]
-            ])->firstOrFail()
-           ->update(['password' => bcrypt($request->get('password'))]);
+            ['activation_token', '=', $request->get('activation_token')],
+            ['email', '=', $request->get('email')]
+        ])->firstOrFail()
+            ->update(['password' => bcrypt($request->get('password'))]);
 
         return redirect(route('user.activate', $request->get('activation_token')));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(int $id): Response
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): Response
     {
         //
     }

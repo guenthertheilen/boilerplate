@@ -15,11 +15,6 @@ class Scaffold extends Command
     private $role;
     private $permission;
 
-    /**
-     * @param User $user
-     * @param Role $role
-     * @param Permission $permission
-     */
     public function __construct(User $user, Role $role, Permission $permission)
     {
         parent::__construct();
