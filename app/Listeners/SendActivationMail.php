@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\Mail;
 class SendActivationMail
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  UserCreated $event

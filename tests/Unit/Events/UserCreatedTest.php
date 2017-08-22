@@ -16,7 +16,7 @@ class UserCreatedTest extends TestCase
     private $listenerActivationToken;
     private $user;
 
-    protected function setUp()
+    function setUp()
     {
         parent::setUp();
 

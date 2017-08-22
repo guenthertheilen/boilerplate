@@ -14,7 +14,7 @@ class CreateUserTest extends DuskTestCase
 
     private $admin;
 
-    public function setUp()
+    function setUp()
     {
         parent::setUp();
         $this->artisan('scaffold:build');
@@ -23,7 +23,7 @@ class CreateUserTest extends DuskTestCase
     }
 
     /** @test */
-    public function itCreatesNewUser()
+    function it_creates_new_user()
     {
         // TODO: Fake mail sending possible?
         $this->browse(function (Browser $browser) {

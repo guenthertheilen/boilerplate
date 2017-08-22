@@ -4,15 +4,15 @@ namespace Tests\Feature\Authorization;
 
 use App\Models\User;
 use App\Services\Authorizer;
-use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ScaffoldAuthorizationTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected function setUp()
+    function setUp()
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ class ScaffoldAuthorizationTest extends TestCase
             'password' => config('scaffold.admin_password')
         ]));
 
-        $admin = app(User::class)->where('name', '=', config('scaffold.admin_name'))->first();
+        $admin = User::whereName(config('scaffold.admin_name'))->first();
         $this->assertTrue($admin->hasRole('admin'));
     }
 
@@ -64,7 +64,7 @@ class ScaffoldAuthorizationTest extends TestCase
             'user.update',
         ];
 
-        $this->actingAs(app(User::class)->where('name', '=', config('scaffold.admin_name'))->first());
+        $this->actingAs(User::whereName(config('scaffold.admin_name'))->first());
 
         foreach ($adminPermissions as $adminPermission) {
             $this->assertTrue(app(Authorizer::class)->allows($adminPermission));

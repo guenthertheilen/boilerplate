@@ -7,8 +7,16 @@ use Closure;
 
 class Authorization
 {
+    /**
+     * @var Authorizer
+     */
     private $authorizer;
 
+    /**
+     * Authorization constructor.
+     *
+     * @param Authorizer $authorizer
+     */
     public function __construct(Authorizer $authorizer)
     {
         $this->authorizer = $authorizer;

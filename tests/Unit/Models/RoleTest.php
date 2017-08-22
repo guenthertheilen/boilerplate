@@ -85,7 +85,7 @@ class RoleTest extends TestCase
         app(Role::class)->defaultRole();
         app(Role::class)->defaultRole();
 
-        $this->assertCount(1, app(Role::class)->where(['name' => 'user'])->get());
+        $this->assertCount(1, Role::whereName('user')->get());
     }
 
     /** @test */

@@ -11,7 +11,7 @@ class LoginTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
+    function setUp()
     {
         parent::setUp();
 

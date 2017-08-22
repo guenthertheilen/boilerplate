@@ -4,22 +4,16 @@ namespace App\Listeners;
 
 use App\Events\UserCreated;
 use App\Models\Role;
-use App\Models\User;
 
 class AttachDefaultRoleToUser
 {
-    /**
-     * @var User
-     */
-    private $user;
-
     /**
      * @var Role
      */
     private $role;
 
     /**
-     * Create the event listener.
+     * AttachDefaultRoleToUser constructor.
      *
      * @param Role $role
      */

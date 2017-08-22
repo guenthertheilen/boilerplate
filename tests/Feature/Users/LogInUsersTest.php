@@ -3,20 +3,13 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class LogInUsersTest extends TestCase
 {
     use DatabaseMigrations;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-
-    }
 
     /** @test */
     function it_logs_in_active_user_with_valid_crendentials()

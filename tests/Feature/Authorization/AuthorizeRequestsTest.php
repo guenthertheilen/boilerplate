@@ -22,7 +22,7 @@ class AuthorizeRequestsTest extends TestCase
      * The test route is defined in routes/web.php.
      * It seems there is no way to define a named route on the fly.
      */
-    protected function setUp()
+    function setUp()
     {
         parent::setUp();
 

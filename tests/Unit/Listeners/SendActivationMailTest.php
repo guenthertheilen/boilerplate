@@ -12,7 +12,7 @@ use Tests\TestCase;
 class SendActivationMailTest extends TestCase
 {
     /** @test */
-    public function itSendsActivationMail()
+    function it_sends_activation_mail()
     {
         $user = factory(User::class)->make();
         $event = new SendActivationMail();

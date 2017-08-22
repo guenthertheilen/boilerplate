@@ -4,8 +4,8 @@ namespace Tests\Feature\Users;
 
 use App\Events\UserCreated;
 use App\Models\User;
-use Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
@@ -189,7 +189,7 @@ class RegisterUsersTest extends TestCase
             'password_confirmation' => 'secret'
         ]);
 
-        $user = app(User::class)->where('name', '=', 'John Doe')->first();
+        $user = User::whereName('John Doe')->first();
 
         $this->assertTrue($user->hasRole('user'));
     }

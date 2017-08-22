@@ -2,9 +2,9 @@
 
 namespace Tests\Browser;
 
-use Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -13,10 +13,10 @@ class ActivateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function itActivatesUserThatHasNoPasswordYet()
+    function it_activates_user_that_has_no_password_yet()
     {
         $user = factory(User::class)->create(['password' => '', 'active' => 0]);
-        
+
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit(route('user.activate', $user->activation_token))
                 ->assertRouteIs('password.create', $user->activation_token)

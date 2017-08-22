@@ -56,7 +56,7 @@ class User extends Authenticatable
     public function attachRole($role)
     {
         if (is_string($role)) {
-            $role = app(Role::class)->where('name', '=', $role)->first();
+            $role = Role::whereName($role)->first();
         }
 
         if (!$this->hasRole($role)) {
@@ -175,7 +175,7 @@ class User extends Authenticatable
     {
         do {
             $token = str_random(32);
-        } while (static::where("registration_token", "=", $token)->first() instanceof $this);
+        } while (static::whereActivationToken($token)->first() instanceof $this);
 
         $this->update(
             ['activation_token' => $token]

@@ -15,6 +15,11 @@ class Role extends Model
         'name'
     ];
 
+    /**
+     * Name of default role for newly created users.
+     *
+     * @var string
+     */
     private $defaultRoleName = 'user';
 
     /**
@@ -46,7 +51,7 @@ class Role extends Model
     public function attachPermission($permission)
     {
         if (is_string($permission)) {
-            $permission = app(Permission::class)->where('name', '=', $permission)->first();
+            $permission = Permission::whereName($permission)->first();
         }
 
         if (!$this->hasPermission($permission)) {

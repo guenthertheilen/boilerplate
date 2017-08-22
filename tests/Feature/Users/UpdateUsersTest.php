@@ -28,7 +28,8 @@ class UpdateUsersTest extends TestCase
         $role = factory(Role::class)->create();
         $user->attachRole($role);
 
-        $this->patch(route('user.update', $user->id), ['name' => 'bar', 'email' => $user->email, 'roles' => [$role->id]])
+        $payload = ['name' => 'bar', 'email' => $user->email, 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload)
             ->assertRedirect(route('user.index'));
 
         $this->assertDatabaseHas('users', ['name' => 'bar', 'email' => $user->email]);
@@ -45,7 +46,8 @@ class UpdateUsersTest extends TestCase
         $role = factory(Role::class)->create();
         $user->attachRole($role);
 
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => 'bar@example.com', 'roles' => [$role->id]])
+        $payload = ['name' => $user->name, 'email' => 'bar@example.com', 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload)
             ->assertRedirect(route('user.index'));
 
         $this->assertDatabaseHas('users', ['name' => $user->name, 'email' => 'bar@example.com']);
@@ -63,7 +65,8 @@ class UpdateUsersTest extends TestCase
         $role2 = factory(Role::class)->create();
         $user->attachRole($role1);
 
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => $user->email, 'roles' => [$role2->id]])
+        $payload = ['name' => $user->name, 'email' => $user->email, 'roles' => [$role2->id]];
+        $this->patch(route('user.update', $user->id), $payload)
             ->assertRedirect(route('user.index'));
 
         $this->assertDatabaseHas('users', ['name' => $user->name, 'email' => $user->email]);
@@ -81,7 +84,8 @@ class UpdateUsersTest extends TestCase
         $role = factory(Role::class)->create();
         $user->attachRole($role);
 
-        $this->patch(route('user.update', $user->id), ['name' => '', 'email' => $user->email, 'roles' => [$role->id]]);
+        $payload = ['name' => '', 'email' => $user->email, 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload);
 
         $this->assertDatabaseMissing('users', ['name' => '']);
     }
@@ -93,7 +97,8 @@ class UpdateUsersTest extends TestCase
         $role = factory(Role::class)->create();
         $user->attachRole($role);
 
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => '', 'roles' => [$role->id]]);
+        $payload = ['name' => $user->name, 'email' => '', 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload);
 
         $this->assertDatabaseMissing('users', ['email' => '']);
     }
@@ -105,7 +110,8 @@ class UpdateUsersTest extends TestCase
         $role = factory(Role::class)->create();
         $user->attachRole($role);
 
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => 'not-an-email', 'roles' => [$role->id]]);
+        $payload = ['name' => $user->name, 'email' => 'not-an-email', 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload);
 
         $this->assertDatabaseMissing('users', ['email' => 'not-an-email']);
     }
@@ -118,7 +124,9 @@ class UpdateUsersTest extends TestCase
         $user = factory(User::class)->create(['email' => 'bar@bar.com']);
         $role = factory(Role::class)->create();
         $user->attachRole($role);
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => 'foo@foo.com', 'roles' => [$role->id]]);
+
+        $payload = ['name' => $user->name, 'email' => 'foo@foo.com', 'roles' => [$role->id]];
+        $this->patch(route('user.update', $user->id), $payload);
 
         $this->assertDatabaseMissing('users', ['id' => $user->id, 'email' => 'foo@foo.com']);
     }
@@ -128,7 +136,8 @@ class UpdateUsersTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => $user->email, 'roles' => []]);
+        $payload = ['name' => $user->name, 'email' => $user->email, 'roles' => []];
+        $this->patch(route('user.update', $user->id), $payload);
 
         $user->refresh();
         $this->assertCount(1, $user->roles);
@@ -142,8 +151,9 @@ class UpdateUsersTest extends TestCase
         $adminRole = factory(Role::class)->create(['name' => 'admin']);
         $user2->attachRole($adminRole);
 
+        $payload = ['name' => $user2->name, 'email' => $user2->email, 'roles' => [1]];
         $this->actingAs($user1)
-            ->patch(route('user.update', $user2->id), ['name' => $user2->name, 'email' => $user2->email, 'roles' => [1]]);
+            ->patch(route('user.update', $user2->id), $payload);
 
         $user2->refresh();
         $this->assertFalse($user1->hasRole('admin'));
@@ -156,8 +166,9 @@ class UpdateUsersTest extends TestCase
         $adminRole = factory(Role::class)->create(['name' => 'admin']);
         $user->attachRole($adminRole);
 
+        $payload = ['name' => $user->name, 'email' => $user->email, 'roles' => [1]];
         $this->actingAs($user)
-            ->patch(route('user.update', $user->id), ['name' => $user->name, 'email' => $user->email, 'roles' => [1]]);
+            ->patch(route('user.update', $user->id), $payload);
 
         $user->refresh();
         $this->assertTrue($user->hasRole('admin'));

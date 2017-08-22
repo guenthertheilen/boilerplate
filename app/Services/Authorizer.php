@@ -2,30 +2,33 @@
 
 namespace App\Services;
 
-use Auth;
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class Authorizer
 {
-    private $router;
-    private $user;
-
-    public function __construct(Router $router)
-    {
-        $this->router = $router;
-        $this->user = Auth::user();
-    }
-
+    /**
+     * Check if user does not has permission.
+     *
+     * @param null $permission
+     * @return bool
+     */
     public function denies($permission = null)
     {
         return !$this->allows($permission);
     }
 
+    /**
+     * Check if user has permission.
+     *
+     * @param null $permission
+     * @return mixed
+     */
     public function allows($permission = null)
     {
         if ($permission == null) {
-            $permission = $this->router->getCurrentRoute()->getName();
+            $permission = Route::currentRouteName();
         }
-        return $this->user->hasPermission($permission);
+        return Auth::user()->hasPermission($permission);
     }
 }

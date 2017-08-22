@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\UserActivated;
 use App\Events\UserCreated;
 use App\Listeners\AttachDefaultRoleToUser;
 use App\Listeners\CreateActivationToken;
@@ -20,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [
             AttachDefaultRoleToUser::class,
             CreateActivationToken::class,
-	    SendActivationMail::class
+            SendActivationMail::class
         ],
     ];
 

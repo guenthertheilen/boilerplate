@@ -11,12 +11,15 @@ class ActivateAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User $user
      */
     public function __construct(User $user)
     {
@@ -30,6 +33,6 @@ class ActivateAccount extends Mailable
      */
     public function build()
     {
-        return $this->text('mail.activate_account');
+        return $this->text('mail.activate_account', ['user' => $this->user]);
     }
 }
