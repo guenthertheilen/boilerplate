@@ -4,25 +4,30 @@ namespace App\Listeners;
 
 use App\Events\UserCreated;
 use App\Mail\ActivateAccount;
-use Illuminate\Mail\Mailer;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class SendActivationMail
 {
-    private $mail;
-
-    public function __construct($mail = null)
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        if ($mail === null) {
-            $this->mail = app(Mailer::class);
-        } else {
-            $this->mail = $mail;
-        }
+        //
     }
 
+    /**
+     * Handle the event.
+     *
+     * @param  UserCreated  $event
+     * @return void
+     */
     public function handle(UserCreated $event)
     {
-        $this->mail
-            ->to($event->user)
-            ->send(new ActivateAccount($event->user));
+        Mail::to($event->user)->send(new ActivateAccount($event->user));
     }
 }

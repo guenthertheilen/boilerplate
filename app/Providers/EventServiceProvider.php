@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [
             AttachDefaultRoleToUser::class,
             CreateActivationToken::class,
-            SendActivationMail::class
+	    SendActivationMail::class
         ],
     ];
 
