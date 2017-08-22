@@ -9,13 +9,36 @@ use Illuminate\Console\Command;
 
 class Scaffold extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'scaffold:build';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Scaffold authorization system';
+
+    /**
+     * @var User
+     */
     private $user;
+    /**
+     * @var Role
+     */
     private $role;
+    /**
+     * @var Permission
+     */
     private $permission;
 
     /**
+     * Create a new command instance.
+     *
      * @param User $user
      * @param Role $role
      * @param Permission $permission
@@ -28,6 +51,9 @@ class Scaffold extends Command
         $this->permission = $permission;
     }
 
+    /**
+     * Execute the console command.
+     */
     public function handle()
     {
         $this->createPermissions();
