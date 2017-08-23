@@ -16,3 +16,4 @@ tags
 tags.lock
 tags.temp
 .php_cs.cache
+*.sublime-workspace
