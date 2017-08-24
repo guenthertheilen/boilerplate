@@ -11,11 +11,13 @@
   "Permission": "Recht",
   "Permissions": "Rechte",
   "Register": "Registrieren",
+  "Registration successful": "Registrierung erfolgreich",
   "Remember Me": "Angemeldet bleiben",
   "Reset Password": "Passwort zurücksetzen",
   "Roles": "Benutzergruppen",
   "Save New Password": "Neues Passwort speichern",
   "Send Password Reset Link": "Link zum Zurücksetzen zusenden",
+  "Please check your email for activation link.": "Sie erhalten von uns in Kürze eine E-Mail mit dem Link zur Aktivierung Ihres Zugangs.",
   "Update User": "Benutzer bearbeiten",
   "Users": "Benutzer"
 }
