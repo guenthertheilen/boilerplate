@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'activation_token'
+        'name', 'email', 'password', 'active', 'activation_token',
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $events = [
-        'created' => UserCreated::class
+        'created' => UserCreated::class,
     ];
 
     /**
@@ -125,6 +125,19 @@ class User extends Authenticatable
     public function isNotAdmin()
     {
         return !$this->isAdmin();
+    }
+
+    /**
+     * Activate user and remove activation_token
+     *
+     * @return void
+     */
+    public function activate()
+    {
+        $this->update([
+            'active' => 1,
+            'activation_token' => '',
+        ]);
     }
 
     /**

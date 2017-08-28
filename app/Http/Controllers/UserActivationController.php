@@ -20,11 +20,7 @@ class UserActivationController extends Controller
             return redirect(route('password.create', $token));
         }
 
-        // TODO: Refactor into model
-        $user->update([
-            'active' => 1,
-            'activation_token' => ''
-        ]);
+        $user->activate();
 
         return redirect(route('login'));
     }
