@@ -13,7 +13,7 @@ class ActivateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_activates_user_that_has_no_password_yet()
+    function it_activates_user_that_has_no_password_yet()
     {
         $user = factory(User::class)->create(['password' => '', 'active' => 0]);
 
@@ -32,5 +32,21 @@ class ActivateUserTest extends DuskTestCase
 
         $this->assertTrue($user->isActive());
         $this->assertTrue(Auth::validate(['email' => $user->email, 'password' => 'my-new-password']));
+    }
+
+    /** @test */
+    function it_activates_user_that_has_password()
+    {
+        $user = factory(User::class)->create(['password' => 'something', 'active' => 0]);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->visit(route('user.activate', $user->activation_token))
+                ->assertRouteIs('login')
+                ->assertSee(__('Your account was activated. Please log in now.'));
+        });
+
+        $user->refresh();
+
+        $this->assertTrue($user->isActive());
     }
 }
