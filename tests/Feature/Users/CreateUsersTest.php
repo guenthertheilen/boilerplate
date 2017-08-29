@@ -13,35 +13,47 @@ class CreateUsersTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_link_to_create_user()
+    public function it_shows_link_to_create_user()
     {
         $this->get(route('user.index'))
             ->assertSee(route('user.create'));
     }
 
     /** @test */
-    function it_adds_new_user()
+    public function it_adds_new_user()
     {
         $this->post(route('user.store'), [
             'name' => 'Foo Bar',
-            'email' => 'foo@bar.com'
+            'email' => 'foo@bar.com',
         ]);
 
         $this->assertDatabaseHas('users', [
             'name' => 'Foo Bar',
             'email' => 'foo@bar.com',
-            'active' => 0
+            'active' => 0,
         ]);
     }
 
     /** @test */
-    function it_dispatches_event_after_creating_user()
+    public function it_does_not_add_user_without_name()
+    {
+        $this->post(route('user.store'), [
+            'email' => 'johndoe@example.com',
+        ])->assertSessionHasErrors(['name']);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => 'johndoe@example.com',
+        ]);
+    }
+
+    /** @test */
+    public function it_dispatches_event_after_creating_user()
     {
         Event::fake();
 
         $this->post(route('user.store'), [
             'name' => 'Foo Bar',
-            'email' => 'foo@bar.com'
+            'email' => 'foo@bar.com',
         ]);
 
         Event::assertDispatched(UserCreated::class);
