@@ -28,7 +28,7 @@ class UpdateUserTest extends DuskTestCase
     }
 
     /** @test */
-    public function it_changes_username_and_email_and_roles()
+    function it_changes_username_and_email_and_roles()
     {
         $this->assertTrue($this->user->hasRole('user'));
         $this->assertFalse($this->user->hasRole('admin'));

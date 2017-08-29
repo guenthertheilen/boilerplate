@@ -23,7 +23,7 @@ class CreateUserTest extends DuskTestCase
     }
 
     /** @test */
-    public function it_creates_new_user()
+    function it_creates_new_user()
     {
         // TODO: Fake mail sending possible?
         $this->browse(function (Browser $browser) {
