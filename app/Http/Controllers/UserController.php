@@ -45,7 +45,8 @@ class UserController extends Controller
         $user = User::create($data);
         $user->roles()->syncWithoutDetaching($request->get('roles'));
 
-        return redirect(route('user.index'));
+        return redirect(route('user.index'))
+            ->with('flash-success', __('User was created.'));
     }
 
     /**
@@ -85,7 +86,8 @@ class UserController extends Controller
         $user->update($request->only(['name', 'email']));
         $user->roles()->sync($request->get('roles'));
 
-        return redirect(route('user.index'));
+        return redirect(route('user.index'))
+            ->with('flash-success', __('User was updated.'));
     }
 
     /**

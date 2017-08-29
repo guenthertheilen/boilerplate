@@ -38,10 +38,11 @@ class CreateUserTest extends DuskTestCase
                 ->press(__('Create User'))
                 ->assertRouteIs('user.index')
                 ->assertSee('Jimmy McGill')
-                ->assertSee('jimmy@example.com');
+                ->assertSee('jimmy@example.com')
+                ->assertSee(__('User was created.'));
         });
 
-        $user = app(User::class)->where('name', '=', 'Jimmy McGill')->first();
+        $user = User::whereName('Jimmy McGill')->first();
 
         $this->assertTrue($user->hasRole(app(Role::class)->defaultRole()));
         $this->assertTrue($user->hasRole('admin'));

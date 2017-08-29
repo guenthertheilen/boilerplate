@@ -24,7 +24,8 @@ class ActivateUserTest extends DuskTestCase
                 ->type('password', 'my-new-password')
                 ->type('password_confirmation', 'my-new-password')
                 ->press(__('Save Password'))
-                ->assertRouteIs('login');
+                ->assertRouteIs('login')
+                ->assertSee(__('Your account was activated. Please log in now.'));
         });
 
         $user->refresh();

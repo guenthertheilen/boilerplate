@@ -11,18 +11,18 @@ class RegistrationTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_shows_registration_link_for_guest()
+    function it_shows_registration_link_for_guest()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()
                 ->visit('/')
                 ->clickLink(__('Register'))
-                ->assertPathIs(route('register', [], false));
+                ->assertRouteIs('register');
         });
     }
 
     /** @test */
-    public function it_registers_new_user()
+    function it_registers_new_user()
     {
         // TODO: Fake mail sending possible?
         $user = [
@@ -39,9 +39,9 @@ class RegistrationTest extends DuskTestCase
                 ->type('password', 'secret')
                 ->type('password_confirmation', 'secret')
                 ->press(__('Register'))
-                ->assertPathIs('/registration_successful')
+                ->assertRouteIs('registration_successful')
                 ->visit(route('home'))
-                ->assertPathIs('/login'); // Make sure user is not logged in after registration
+                ->assertRouteIs('login'); // Make sure user is not logged in after registration
         });
 
         $this->assertDatabaseHas('users', $user);

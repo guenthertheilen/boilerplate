@@ -27,7 +27,7 @@ class LoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->logout()
                 ->visit('/')
-                ->assertPathIs(route('login', [], false));
+                ->assertRouteIs('login');
         });
     }
 
@@ -40,7 +40,7 @@ class LoginTest extends DuskTestCase
                 ->type('email', 'abc@example.com')
                 ->type('password', '123456')
                 ->press(__('Login'))
-                ->assertPathIs('/');
+                ->assertRouteIs('home');
         });
     }
 }

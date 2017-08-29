@@ -49,7 +49,8 @@ class UpdateUserTest extends DuskTestCase
                 ->assertSee('Kim Wexler')
                 ->assertSee('kim@example.com')
                 ->assertDontSee('Jimmy McGill')
-                ->assertDontSee('jimmy@example.com');
+                ->assertDontSee('jimmy@example.com')
+                ->assertSee(__('User was updated.'));
         });
 
         $this->user->refresh();

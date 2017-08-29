@@ -22,6 +22,7 @@ class UserActivationController extends Controller
 
         $user->activate();
 
-        return redirect(route('login'));
+        return redirect(route('login'))
+            ->with('flash-success', __('Your account was activated. Please log in now.'));
     }
 }
