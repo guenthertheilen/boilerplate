@@ -11,18 +11,18 @@ class LoginTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    function setUp()
+    public function setUp()
     {
         parent::setUp();
 
         factory(User::class)->create([
             'email' => 'abc@example.com',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
         ]);
     }
 
     /** @test */
-    function it_shows_login_page_if_guest_tries_to_access_homepage()
+    public function it_shows_login_page_if_guest_tries_to_access_homepage()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()
@@ -32,7 +32,7 @@ class LoginTest extends DuskTestCase
     }
 
     /** @test */
-    function it_logs_in_visitor_with_valid_credentials()
+    public function it_logs_in_visitor_with_valid_credentials()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()

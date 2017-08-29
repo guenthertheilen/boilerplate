@@ -14,22 +14,21 @@ class UpdateUserTest extends DuskTestCase
     private $user;
     private $admin;
 
-    function setUp()
+    public function setUp()
     {
         parent::setUp();
         $this->artisan('scaffold:build');
 
         $this->user = factory(User::class)->create([
             'name' => 'Jimmy McGill',
-            'email' => 'jimmy@example.com'
+            'email' => 'jimmy@example.com',
         ]);
 
         $this->admin = $this->admin();
     }
 
-
     /** @test */
-    function it_changes_username_and_email_and_roles()
+    public function it_changes_username_and_email_and_roles()
     {
         $this->assertTrue($this->user->hasRole('user'));
         $this->assertFalse($this->user->hasRole('admin'));
