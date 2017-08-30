@@ -24,36 +24,6 @@ class Scaffold extends Command
     protected $description = 'Scaffold authorization system';
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var Role
-     */
-    private $role;
-
-    /**
-     * @var Permission
-     */
-    private $permission;
-
-    /**
-     * Create a new command instance.
-     *
-     * @param User $user
-     * @param Role $role
-     * @param Permission $permission
-     */
-    public function __construct(User $user, Role $role, Permission $permission)
-    {
-        parent::__construct();
-        $this->user = $user;
-        $this->role = $role;
-        $this->permission = $permission;
-    }
-
-    /**
      * Execute the console command.
      */
     public function handle()
@@ -96,7 +66,7 @@ class Scaffold extends Command
         ];
 
         foreach ($permissions as $permission) {
-            $this->permission->create(['name' => $permission]);
+            Permission::create(['name' => $permission]);
         }
     }
 
@@ -105,7 +75,7 @@ class Scaffold extends Command
      */
     private function createAdminRole()
     {
-        $this->role->create(['name' => 'admin']);
+        Role::create(['name' => 'admin']);
     }
 
     /**
@@ -113,12 +83,11 @@ class Scaffold extends Command
      */
     private function createAdminUser()
     {
-        $this->user->create([
+        User::create([
             'name' => config('scaffold.admin_name'),
             'email' => config('scaffold.admin_email'),
-            'password' => bcrypt(config('scaffold.admin_password')),
-            'active' => 1
-        ])->attachRole('admin');
+            'password' => bcrypt(config('scaffold.admin_password'))
+        ])->attachRole('admin')->activate();
     }
 
     /**
@@ -150,7 +119,7 @@ class Scaffold extends Command
             'user.update',
         ];
 
-        $admin = $this->role->where('name', '=', 'admin')->first();
+        $admin = Role::whereName('admin')->first();
 
         foreach ($adminPermissions as $adminPermission) {
             $admin->attachPermission($adminPermission);
@@ -162,7 +131,7 @@ class Scaffold extends Command
      */
     private function attachUserPermissions()
     {
-        $this->role->where('name', '=', 'user')->first()
+        Role::whereName('user')->first()
             ->attachPermission('home');
     }
 }

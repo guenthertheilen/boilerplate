@@ -14,16 +14,12 @@ class LogInUsersTest extends TestCase
     /** @test */
     function it_logs_in_active_user_with_valid_crendentials()
     {
-        factory(User::class)->create([
-            'email' => 'foo@example.com',
-            'password' => bcrypt('secret'),
-            'active' => 1
-        ]);
+        $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 1]);
 
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [
-            'email' => 'foo@example.com',
+            'email' => $user->email,
             'password' => 'secret'
         ]);
 
@@ -33,16 +29,12 @@ class LogInUsersTest extends TestCase
     /** @test */
     function it_does_not_log_in_inactive_user_with_valid_crendentials()
     {
-        factory(User::class)->create([
-            'email' => 'foo@example.com',
-            'password' => bcrypt('secret'),
-            'active' => 0
-        ]);
+        $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 0]);
 
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [
-            'email' => 'foo@example.com',
+            'email' => $user->email,
             'password' => 'secret'
         ]);
 
@@ -71,16 +63,12 @@ class LogInUsersTest extends TestCase
     /** @test */
     function it_does_not_log_in_user_with_invalid_password()
     {
-        factory(User::class)->create([
-            'email' => 'foo@example.com',
-            'password' => bcrypt('secret'),
-            'active' => 1
-        ]);
+        $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 1]);
 
         $this->assertFalse(Auth::check());
 
         $this->post(route('login'), [
-            'email' => 'foo@example.com',
+            'email' => $user->email,
             'password' => 'INVALID'
         ]);
 

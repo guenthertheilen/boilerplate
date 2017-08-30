@@ -136,7 +136,7 @@ class User extends Authenticatable
     {
         $this->update([
             'active' => 1,
-            'activation_token' => '',
+            'activation_token' => null,
         ]);
     }
 

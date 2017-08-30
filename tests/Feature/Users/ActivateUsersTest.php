@@ -14,9 +14,10 @@ class ActivateUsersTest extends TestCase
     /** @test */
     public function it_activates_user()
     {
-        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
+        $user = factory(User::class)->create(['active' => 0]);
 
         $this->assertFalse($user->isActive());
+        $this->assertNotNull($user->activation_token);
 
         $this->get(route('user.activate', $user->activation_token))
             ->assertRedirect(route('login'));
@@ -28,7 +29,7 @@ class ActivateUsersTest extends TestCase
     public function it_does_not_activate_user_if_currently_logged_in_as_other_user()
     {
         $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
+        $user2 = factory(User::class)->create(['active' => 0]);
 
         $this->actingAs($user1)
             ->get(route('user.activate', $user2->activation_token))
@@ -40,7 +41,7 @@ class ActivateUsersTest extends TestCase
     /** @test */
     public function it_asks_user_to_set_password_if_no_password_is_set_yet()
     {
-        $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo', 'password' => '']);
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
         $this->get(route('user.activate', $user->activation_token))
             ->assertRedirect(route('password.create', $user->activation_token));
@@ -103,11 +104,11 @@ class ActivateUsersTest extends TestCase
     /** @test */
     public function it_does_not_set_user_password_if_token_does_not_exist()
     {
-        $user = factory(User::class)->create(['active' => 0, 'password' => '', 'activation_token' => 'foo']);
+        $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
         $this->post(route('password.store'), [
             'email' => $user->email,
-            'activation_token' => 'bar',
+            'activation_token' => 'invalid-token',
             'password' => 'new-password',
             'password_confirmation' => 'new-password',
         ])->assertSessionHasErrors(['email']);
@@ -129,22 +130,12 @@ class ActivateUsersTest extends TestCase
     /** @test */
     public function it_does_not_set_user_password_if_email_and_token_do_not_match()
     {
-        factory(User::class)->create([
-            'active' => 0,
-            'password' => '',
-            'email' => 'foo@example.com',
-            'activation_token' => 'foo',
-        ]);
-        factory(User::class)->create([
-            'active' => 0,
-            'password' => '',
-            'email' => 'bar@example.com',
-            'activation_token' => 'bar',
-        ]);
+        $user1 = factory(User::class)->create(['active' => 0, 'password' => '']);
+        $user2 = factory(User::class)->create(['active' => 0, 'password' => '']);
 
         $this->post(route('password.store'), [
-            'email' => 'foo@example.com',
-            'activation_token' => 'bar',
+            'email' => $user1->email,
+            'activation_token' => $user2->activation_token,
             'password' => 'new-password',
             'password_confirmation' => 'new-password',
         ])->assertSessionHasErrors(['email']);
@@ -196,6 +187,6 @@ class ActivateUsersTest extends TestCase
 
         $this->get(route('user.activate', $user->activation_token));
 
-        $this->assertEquals('', $user->fresh()->activation_token);
+        $this->assertSame(null, $user->fresh()->activation_token);
     }
 }

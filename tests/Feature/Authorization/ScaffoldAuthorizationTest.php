@@ -25,6 +25,7 @@ class ScaffoldAuthorizationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => config('scaffold.admin_name'),
             'email' => config('scaffold.admin_email'),
+            'activation_token' => null,
             'active' => 1
         ]);
 

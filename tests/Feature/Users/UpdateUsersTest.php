@@ -35,8 +35,7 @@ class UpdateUsersTest extends TestCase
         $this->assertDatabaseHas('users', ['name' => 'bar', 'email' => $user->email]);
         $this->assertDatabaseMissing('users', ['name' => 'foo']);
 
-        $user->refresh();
-        $this->assertTrue($user->hasRole($role));
+        $this->assertTrue($user->fresh()->hasRole($role));
     }
 
     /** @test */
@@ -53,8 +52,7 @@ class UpdateUsersTest extends TestCase
         $this->assertDatabaseHas('users', ['name' => $user->name, 'email' => 'bar@example.com']);
         $this->assertDatabaseMissing('users', ['email' => 'foo@example.com']);
 
-        $user->refresh();
-        $this->assertTrue($user->hasRole($role));
+        $this->assertTrue($user->fresh()->hasRole($role));
     }
 
     /** @test */
@@ -137,6 +135,18 @@ class UpdateUsersTest extends TestCase
         $user = factory(User::class)->create();
 
         $payload = ['name' => $user->name, 'email' => $user->email, 'roles' => []];
+        $this->patch(route('user.update', $user->id), $payload);
+
+        $user->refresh();
+        $this->assertCount(1, $user->roles);
+    }
+
+    /** @test */
+    function it_does_not_update_user_without_roles_field_in_payload()
+    {
+        $user = factory(User::class)->create();
+
+        $payload = ['name' => $user->name, 'email' => $user->email];
         $this->patch(route('user.update', $user->id), $payload);
 
         $user->refresh();

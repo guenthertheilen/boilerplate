@@ -174,8 +174,7 @@ class RegisterUsersTest extends TestCase
         ]);
 
         $this->assertDatabaseMissing('users', [
-            'name' => 'Jane',
-            'email' => 'foo@bar.com',
+            'name' => 'Jane'
         ]);
     }
 

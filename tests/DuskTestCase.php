@@ -48,6 +48,6 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function admin()
     {
-        return app(User::class)->where('name', '=', config('scaffold.admin_name'))->first();
+        return User::whereName(config('scaffold.admin_name'))->first();
     }
 }
