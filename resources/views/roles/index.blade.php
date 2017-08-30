@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="title">@lang('Roles')</h1>
+    <h1 class="title is-pulled-left">@lang('Roles')</h1>
+
+    <a href="{{ route('role.create') }}" class="button is-primary is-pulled-right">@lang('Add Role')</a>
 
     <table class="table">
         <thead>
