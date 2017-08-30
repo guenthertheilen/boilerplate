@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Illuminate\Support\Facades\Validator;
+use App\Services\Authorizer;
+use Blade;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,8 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('keepOwnAdminRole', 'App\Validators\KeepOwnAdminRole@validate');
-        Validator::extend('emailAndTokenMatch', 'App\Validators\EmailAndTokenMatch@validate');
+        Blade::if ('authorized', function ($permission) {
+            return app(Authorizer::class)->allows($permission);
+        });
     }
 
     /**
@@ -27,9 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(DuskServiceProvider::class);
-            $this->app->register(IdeHelperServiceProvider::class);
-        }
+        //
     }
 }

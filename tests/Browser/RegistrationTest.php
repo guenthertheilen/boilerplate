@@ -24,7 +24,6 @@ class RegistrationTest extends DuskTestCase
     /** @test */
     function register_new_user()
     {
-        // TODO: Fake mail sending possible?
         $user = [
             'name' => 'foo',
             'email' => 'foo@example.com',

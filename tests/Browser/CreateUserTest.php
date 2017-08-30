@@ -25,7 +25,6 @@ class CreateUserTest extends DuskTestCase
     /** @test */
     function create_new_user()
     {
-        // TODO: Fake mail sending possible?
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)
                 ->visit(route('user.index'))

@@ -1,4 +1,3 @@
-@inject('authorizer', 'App\Services\Authorizer')
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>

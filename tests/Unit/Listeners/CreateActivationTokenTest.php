@@ -13,11 +13,10 @@ class CreateActivationTokenTest extends TestCase
     /** @test */
     function create_activation_token()
     {
-        $user = Mockery::spy(User::class);
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('createActivationToken')->once();
 
         $listener = new CreateActivationToken();
         $listener->handle(new UserCreated($user));
-
-        $user->shouldHaveReceived('createActivationToken')->once();
     }
 }

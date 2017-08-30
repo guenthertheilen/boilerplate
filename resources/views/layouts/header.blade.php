@@ -9,20 +9,25 @@
     </div>
     <div class="navbar-menu">
         <div class="navbar-end">
-            @if (Auth::guest())
+            @guest
                 <a href="{{ route('login') }}" class="navbar-item">@lang('Login')</a>
                 <a href="{{ route('register') }}" class="navbar-item">@lang('Register')</a>
-            @else
+            @endguest
+
+            @auth
                 <a href="#" class="navbar-item">{{ Auth::user()->name }}</a>
-                @if($authorizer->allows('user.index'))
-                    <a href="{{ route('user.index') }}" class="navbar-item">@lang('Users')</a>
-                @endif
-                @if($authorizer->allows('role.index'))
-                    <a href="{{ route('role.index') }}" class="navbar-item">@lang('Roles')</a>
-                @endif
-                @if($authorizer->allows('permission.index'))
-                    <a href="{{ route('permission.index') }}" class="navbar-item">@lang('Permissions')</a>
-                @endif
+                @authorized('user.index')
+                <a href="{{ route('user.index') }}" class="navbar-item">@lang('Users')</a>
+                @endauthorized
+
+                @authorized('role.index')
+                <a href="{{ route('role.index') }}" class="navbar-item">@lang('Roles')</a>
+                @endauthorized
+
+                @authorized('permission.index')
+                <a href="{{ route('permission.index') }}" class="navbar-item">@lang('Permissions')</a>
+                @endauthorized
+
                 <a href="{{ route('logout') }}"
                    class="navbar-item"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -31,7 +36,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
-            @endif
+            @endauth
         </div>
     </div>
 </nav>

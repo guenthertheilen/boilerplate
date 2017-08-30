@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\KeepOwnAdminRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -31,7 +32,7 @@ class UpdateUserRequest extends FormRequest
                 'email',
                 Rule::unique('users')->ignore($this->route('user')),
             ],
-            'roles' => 'required|keepOwnAdminRole:' . $this->route('user')
+            'roles' => ['required', new KeepOwnAdminRole($this->route('user'))]
         ];
     }
 }

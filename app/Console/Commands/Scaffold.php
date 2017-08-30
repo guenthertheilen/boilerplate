@@ -83,6 +83,10 @@ class Scaffold extends Command
      */
     private function createAdminUser()
     {
+        // TODO: Prevent sending of activation mail
+        // Maybe we should remove the password from config
+        // and let the scaffolded admin run through the normal activation process
+        // so that he must activate the account and create his own password.
         User::create([
             'name' => config('scaffold.admin_name'),
             'email' => config('scaffold.admin_email'),

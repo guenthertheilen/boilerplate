@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\EmailAndTokenMatch;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePasswordRequest extends FormRequest
@@ -24,7 +25,11 @@ class CreatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|emailAndTokenMatch:' . $this->request->get('activation_token'),
+            'email' => [
+                'required',
+                'email',
+                new EmailAndTokenMatch($this->request->get('activation_token'))
+            ],
             'password' => 'required|min:6|confirmed',
             'activation_token' => 'required'
         ];

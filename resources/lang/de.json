@@ -9,6 +9,7 @@
   "Login": "Anmelden",
   "Logout": "Abmelden",
   "Name": "Name",
+  "Own admin role can not be removed.": "Eigene Admin-Berechtigung darf nicht entfernt werden.",
   "Password": "Passwort",
   "Permission": "Recht",
   "Permission was created.": "Recht wurde angelegt.",
