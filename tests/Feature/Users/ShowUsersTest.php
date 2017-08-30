@@ -12,7 +12,7 @@ class ShowUsersTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_list_of_users()
+    function show_list_of_users()
     {
         factory(User::class)->create(['name' => 'Jane Doe', 'email' => 'jane@foo.de']);
         factory(User::class)->create(['name' => 'John Doe', 'email' => 'john@bar.org']);

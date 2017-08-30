@@ -11,7 +11,7 @@ use Tests\TestCase;
 class CreateActivationTokenTest extends TestCase
 {
     /** @test */
-    function it_creates_activation_token()
+    function create_activation_token()
     {
         $user = Mockery::spy(User::class);
 

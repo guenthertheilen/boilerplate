@@ -12,7 +12,7 @@ class ShowRolesTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_list_of_roles()
+    function show_list_of_roles()
     {
         factory(Role::class)->create(['name' => 'role_1']);
         factory(Role::class)->create(['name' => 'role_2']);

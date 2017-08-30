@@ -12,7 +12,7 @@ class PermissionTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_gets_attached_roles_in_alphabetical_order_as_comma_seperated_string()
+    function get_attached_roles_in_alphabetical_order_as_comma_seperated_string()
     {
         $permission = factory(Permission::class)->create();
 

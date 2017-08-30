@@ -13,7 +13,7 @@ class AttachDefaultRoleToUserTest extends TestCase
 {
 
     /** @test */
-    function it_attaches_default_role_to_user()
+    function attach_default_role_to_user()
     {
         $user = Mockery::mock(User::class);
         $role = Mockery::mock(Role::class);

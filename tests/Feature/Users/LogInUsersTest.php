@@ -12,7 +12,7 @@ class LogInUsersTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_logs_in_active_user_with_valid_crendentials()
+    function log_in_active_user_with_valid_crendentials()
     {
         $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 1]);
 
@@ -27,7 +27,7 @@ class LogInUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_log_in_inactive_user_with_valid_crendentials()
+    function do_not_log_in_inactive_user_with_valid_crendentials()
     {
         $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 0]);
 
@@ -42,7 +42,7 @@ class LogInUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_log_in_user_with_invalid_email()
+    function do_not_log_in_user_with_invalid_email()
     {
         factory(User::class)->create([
             'email' => 'foo@example.com',
@@ -61,7 +61,7 @@ class LogInUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_log_in_user_with_invalid_password()
+    function do_not_log_in_user_with_invalid_password()
     {
         $user = factory(User::class)->create(['password' => bcrypt('secret'), 'active' => 1]);
 

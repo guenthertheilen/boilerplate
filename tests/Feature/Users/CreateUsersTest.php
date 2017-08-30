@@ -13,14 +13,14 @@ class CreateUsersTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_link_to_create_user()
+    function show_link_to_create_user()
     {
         $this->get(route('user.index'))
             ->assertSee(route('user.create'));
     }
 
     /** @test */
-    function it_adds_new_user()
+    function create_new_user()
     {
         $this->post(route('user.store'), [
             'name' => 'Foo Bar',
@@ -35,7 +35,7 @@ class CreateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_add_user_without_name()
+    function user_creation_requires_name()
     {
         $this->post(route('user.store'), [
             'name' => '',
@@ -48,7 +48,7 @@ class CreateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_dispatches_event_after_creating_user()
+    function dispatch_event_after_creating_user()
     {
         Event::fake();
 

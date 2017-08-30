@@ -12,14 +12,14 @@ class CreatePermissionsTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_link_to_create_user()
+    function show_link_to_create_permission()
     {
         $this->get(route('permission.index'))
             ->assertSee(route('permission.create'));
     }
 
     /** @test */
-    function it_adds_new_permission()
+    function create_new_permission()
     {
         $this->post(route('permission.store'), ['name' => 'foo']);
 
@@ -27,7 +27,7 @@ class CreatePermissionsTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_add_permission_without_name()
+    function new_permission_requires_name()
     {
         $this->post(route('permission.store'), ['name' => '']);
 
@@ -35,7 +35,7 @@ class CreatePermissionsTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_add_permission_without_unique_name()
+    function new_permission_requires_unique_name()
     {
         $permission = factory(Permission::class)->create(['name' => 'foo']);
 

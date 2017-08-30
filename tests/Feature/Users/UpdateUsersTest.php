@@ -13,7 +13,7 @@ class UpdateUsersTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_links_to_edit_user()
+    function show_links_to_edit_user()
     {
         $user = factory(User::class)->create();
 
@@ -22,7 +22,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_updates_users_name()
+    function update_name()
     {
         $user = factory(User::class)->create(['name' => 'foo']);
         $role = factory(Role::class)->create();
@@ -39,7 +39,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_updates_users_email()
+    function update_email()
     {
         $user = factory(User::class)->create(['email' => 'foo@example.com']);
         $role = factory(Role::class)->create();
@@ -56,7 +56,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_updates_users_roles()
+    function update_roles()
     {
         $user = factory(User::class)->create();
         $role1 = factory(Role::class)->create();
@@ -76,7 +76,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_name()
+    function update_requires_name()
     {
         $user = factory(User::class)->create(['name' => 'foo']);
         $role = factory(Role::class)->create();
@@ -89,7 +89,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_email()
+    function update_requires_email()
     {
         $user = factory(User::class)->create(['email' => 'foo@bar.com']);
         $role = factory(Role::class)->create();
@@ -102,7 +102,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_valid_email()
+    function update_requires_valid_email()
     {
         $user = factory(User::class)->create(['email' => 'foo@bar.com']);
         $role = factory(Role::class)->create();
@@ -115,7 +115,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_unique_email()
+    function update_requires_unique_email()
     {
         factory(User::class)->create(['email' => 'foo@foo.com']);
 
@@ -130,7 +130,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_roles()
+    function update_requires_roles()
     {
         $user = factory(User::class)->create();
 
@@ -142,7 +142,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_update_user_without_roles_field_in_payload()
+    function update_requires_role_field_in_payload()
     {
         $user = factory(User::class)->create();
 
@@ -154,7 +154,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_can_remove_admin_role_from_other_users()
+    function remove_admin_role_from_other_users()
     {
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
@@ -170,7 +170,7 @@ class UpdateUsersTest extends TestCase
     }
 
     /** @test */
-    function it_prevents_user_from_removing_own_admin_role()
+    function own_admin_role_cannot_be_removed()
     {
         $user = factory(User::class)->create();
         $adminRole = factory(Role::class)->create(['name' => 'admin']);

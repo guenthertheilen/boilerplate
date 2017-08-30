@@ -22,7 +22,7 @@ class LoginTest extends DuskTestCase
     }
 
     /** @test */
-    function it_shows_login_page_if_guest_tries_to_access_homepage()
+    function show_login_page_if_guest_tries_to_access_homepage()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()
@@ -32,7 +32,7 @@ class LoginTest extends DuskTestCase
     }
 
     /** @test */
-    function it_logs_in_visitor_with_valid_credentials()
+    function log_in_visitor_with_valid_credentials()
     {
         $this->browse(function (Browser $browser) {
             $browser->logout()

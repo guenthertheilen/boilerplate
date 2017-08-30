@@ -12,7 +12,7 @@ class ActivateUsersTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function it_activates_user()
+    function activate_user()
     {
         $user = factory(User::class)->create(['active' => 0]);
 
@@ -26,7 +26,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_activate_user_if_currently_logged_in_as_other_user()
+    function permit_user_activation_when_logged_in()
     {
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create(['active' => 0]);
@@ -39,7 +39,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_asks_user_to_set_password_if_no_password_is_set_yet()
+    function asks_user_to_set_password_if_none_is_set()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -48,7 +48,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_sets_user_password()
+    function set_user_password()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -63,7 +63,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_without_email()
+    function password_creation_requires_email()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -76,7 +76,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_with_invalid_email()
+    function password_creation_requires_valid_email()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -89,7 +89,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_token_is_empty()
+    function password_creation_requires_token()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -102,7 +102,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_token_does_not_exist()
+    function password_creation_requires_existing_token()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -115,7 +115,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_email_does_not_exist()
+    function password_creation_requires_existing_email()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '', 'email' => 'foo@example.com']);
 
@@ -128,7 +128,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_email_and_token_do_not_match()
+    function password_creation_requires_matching_token_and_email()
     {
         $user1 = factory(User::class)->create(['active' => 0, 'password' => '']);
         $user2 = factory(User::class)->create(['active' => 0, 'password' => '']);
@@ -142,7 +142,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_password_is_not_confirmed()
+    function password_creation_requires_password_confirmation()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -155,7 +155,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_password_is_empty()
+    function password_creation_requires_password()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -168,7 +168,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_set_user_password_if_password_is_too_short()
+    function password_creation_requires_password_of_sufficient_length()
     {
         $user = factory(User::class)->create(['active' => 0, 'password' => '']);
 
@@ -181,7 +181,7 @@ class ActivateUsersTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_activation_token_after_user_is_activated()
+    function delete_activation_token_after_user_is_activated()
     {
         $user = factory(User::class)->create(['active' => 0, 'activation_token' => 'foo']);
 

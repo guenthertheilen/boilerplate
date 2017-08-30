@@ -12,7 +12,7 @@ class UpdatePermissionsTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_links_to_edit_permission()
+    function show_links_to_edit_permission()
     {
         $permission = factory(Permission::class)->create();
 

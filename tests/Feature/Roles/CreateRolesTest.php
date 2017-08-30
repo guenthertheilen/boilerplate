@@ -11,7 +11,7 @@ class CreateRolesTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_adds_new_role()
+    function create_new_role()
     {
         $this->post(route('role.store'), ['name' => 'foobar']);
 

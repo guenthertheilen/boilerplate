@@ -14,7 +14,7 @@ class RegisterUsersTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_registers_new_user()
+    function register_new_user()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -36,7 +36,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_dispatches_event_after_registering_user()
+    function dispatch_event_after_registering_user()
     {
         Event::fake();
 
@@ -51,7 +51,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_without_name()
+    function user_registration_requires_name()
     {
         $this->post(route('register'), [
             'email' => 'johndoe@example.com',
@@ -65,7 +65,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_without_email()
+    function user_registration_requires_email()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -79,7 +79,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_with_invalid_email()
+    function user_registration_requires_valid_email()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -95,7 +95,7 @@ class RegisterUsersTest extends TestCase
 
 
     /** @test */
-    function it_does_not_register_user_without_password()
+    function user_registration_requires_password()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -109,7 +109,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_with_too_short_password()
+    function user_registration_requires_password_of_sufficient_length()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -124,7 +124,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_without_password_confirmation()
+    function user_registration_requires_password_confirmation()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -138,7 +138,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_without_matching_password_confirmation()
+    function user_registration_requires_matching_password_confirmation()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',
@@ -153,7 +153,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_does_not_register_user_without_unique_email()
+    function user_registration_requires_unique_email()
     {
         $oldUser = factory(User::class)->create([
             'name' => 'John',
@@ -179,7 +179,7 @@ class RegisterUsersTest extends TestCase
     }
 
     /** @test */
-    function it_attaches_default_role_to_new_user()
+    function attach_default_role_to_user_after_registration()
     {
         $this->post(route('register'), [
             'name' => 'John Doe',

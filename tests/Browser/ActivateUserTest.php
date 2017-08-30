@@ -13,7 +13,7 @@ class ActivateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_activates_user_that_has_no_password_yet()
+    function activate_user_that_has_no_password_yet()
     {
         $user = factory(User::class)->create(['password' => '', 'active' => 0]);
 
@@ -35,7 +35,7 @@ class ActivateUserTest extends DuskTestCase
     }
 
     /** @test */
-    function it_activates_user_that_has_password()
+    function activate_user_that_has_password()
     {
         $user = factory(User::class)->create(['password' => 'something', 'active' => 0]);
 

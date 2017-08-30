@@ -12,7 +12,7 @@ class RoleTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function it_attaches_permission_to_role()
+    function attach_permission_to_role()
     {
         $role = factory(Role::class)->create();
         $permission = factory(Permission::class)->create();
@@ -23,7 +23,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_attaches_permission_by_name_to_role()
+    function attach_permission_by_name_to_role()
     {
         $role = factory(Role::class)->create();
         $permission = factory(Permission::class)->create(['name' => '/foobar']);
@@ -34,7 +34,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_role_has_given_permission()
+    function check_if_role_has_given_permission()
     {
         $role = factory(Role::class)->create();
         $permission1 = factory(Permission::class)->create();
@@ -47,7 +47,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_role_has_given_permission_by_name_of_permission()
+    function check_if_role_has_given_permission_by_name_of_permission()
     {
         $role = factory(Role::class)->create();
         $permission1 = factory(Permission::class)->create(['name' => '/foo']);
@@ -60,7 +60,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_gets_default_role()
+    function get_default_role()
     {
         $default = app(Role::class)->defaultRole()->toArray();
 
@@ -68,7 +68,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_creates_default_role_if_it_is_missing()
+    function create_default_role_if_it_is_missing()
     {
         $this->assertDatabaseMissing('roles', ['name' => 'user']);
 
@@ -78,7 +78,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_creates_default_role_only_once()
+    function create_default_role_only_once()
     {
         $this->assertDatabaseMissing('roles', ['name' => 'user']);
 
@@ -89,7 +89,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_checks_if_role_is_default_role()
+    function check_if_role_is_default_role()
     {
         $role1 = factory(Role::class)->create(['name' => 'foo']);
         $this->assertFalse($role1->isDefaultRole());

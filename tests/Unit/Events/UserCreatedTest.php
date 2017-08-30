@@ -34,19 +34,19 @@ class UserCreatedTest extends TestCase
     }
 
     /** @test */
-    function it_calls_listener_to_attach_default_role()
+    function call_listener_to_attach_default_role()
     {
         $this->listenerDefaultRole->shouldHaveReceived('handle')->once();
     }
 
     /** @test */
-    function it_calls_listener_to_create_activation_token()
+    function call_listener_to_create_activation_token()
     {
         $this->listenerActivationToken->shouldHaveReceived('handle')->once();
     }
 
     /** @test */
-    function it_calls_listener_to_send_activation_mail()
+    function call_listener_to_send_activation_mail()
     {
         $this->listenerSendActivationMail->shouldHaveReceived('handle')->once();
     }

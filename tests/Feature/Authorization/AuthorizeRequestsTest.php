@@ -38,7 +38,7 @@ class AuthorizeRequestsTest extends TestCase
     }
 
     /** @test */
-    function it_authorizes_request()
+    function authorize_request()
     {
         $this->actingAs($this->admin)
             ->get(route("A1IboUB4N6w27hLNMeKnecsl7obntg"))
@@ -50,7 +50,7 @@ class AuthorizeRequestsTest extends TestCase
     }
 
     /** @test */
-    function it_denies_request()
+    function deny_request()
     {
         $this->actingAs($this->user)
             ->get(route("A1IboUB4N6w27hLNMeKnecsl7obntg"))

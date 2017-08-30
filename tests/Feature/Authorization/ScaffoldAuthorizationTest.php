@@ -20,7 +20,7 @@ class ScaffoldAuthorizationTest extends TestCase
     }
 
     /** @test */
-    function it_generates_admin_user()
+    function generate_admin_user()
     {
         $this->assertDatabaseHas('users', [
             'name' => config('scaffold.admin_name'),
@@ -39,7 +39,7 @@ class ScaffoldAuthorizationTest extends TestCase
     }
 
     /** @test */
-    function it_scaffolds_permission_for_admin()
+    function scaffold_admin_permissions()
     {
         $adminPermissions = [
             'permission.create',
@@ -73,7 +73,7 @@ class ScaffoldAuthorizationTest extends TestCase
     }
 
     /** @test */
-    function it_scaffolds_permission_for_user()
+    function scaffold_user_permissions()
     {
         $user = factory(User::class)->create();
         $user->attachRole('user');

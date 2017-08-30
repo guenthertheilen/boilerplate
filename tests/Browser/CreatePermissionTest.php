@@ -21,7 +21,7 @@ class CreatePermissionTest extends DuskTestCase
     }
 
     /** @test */
-    function it_creates_new_permission()
+    function create_new_permission()
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->admin)

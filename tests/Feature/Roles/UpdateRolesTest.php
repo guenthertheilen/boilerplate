@@ -12,7 +12,7 @@ class UpdateRolesTest extends TestCase
     use DatabaseMigrations, WithoutMiddleware;
 
     /** @test */
-    function it_shows_links_to_edit_role()
+    function show_links_to_edit_role()
     {
         $role = factory(Role::class)->create();
 
