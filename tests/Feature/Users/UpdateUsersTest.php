@@ -2,15 +2,22 @@
 
 namespace Tests\Feature\Users;
 
+use App\Http\Middleware\Authorization;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class UpdateUsersTest extends TestCase
 {
-    use DatabaseMigrations, WithoutMiddleware;
+    use DatabaseMigrations;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->withoutMiddleware([Authenticate::class, Authorization::class]);
+    }
 
     /** @test */
     function show_links_to_edit_user()

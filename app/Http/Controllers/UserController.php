@@ -6,7 +6,6 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -76,14 +75,11 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateUserRequest $request
-     * @param $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        // TODO: Replace by route model binding in L5.5
-        // route model binding does not work in 5.4 with WithoutMiddleware in tests
-        $user = User::find($id);
         $user->update($request->only(['name', 'email']));
         $user->roles()->sync($request->get('roles'));
 

@@ -3,21 +3,22 @@
 namespace App\Rules;
 
 use App\Models\Role;
+use App\Models\User;
 use Auth;
 use Illuminate\Contracts\Validation\Rule;
 
 class KeepOwnAdminRole implements Rule
 {
-    private $userId;
+    private $user;
 
     /**
      * Create a new rule instance.
      *
-     * @param $userId
+     * @param User $user
      */
-    public function __construct($userId)
+    public function __construct(User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     /**
@@ -29,7 +30,7 @@ class KeepOwnAdminRole implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->isNotEditingOwnRoles($this->userId) || $this->isNotRemovingAdminRole($value);
+        return $this->isNotEditingOwnRoles($this->user) || $this->isNotRemovingAdminRole($value);
     }
 
     /**
@@ -45,12 +46,12 @@ class KeepOwnAdminRole implements Rule
     /**
      * Check if user does not edit own role.
      *
-     * @param $userId
+     * @param User $user
      * @return bool
      */
-    private function isNotEditingOwnRoles($userId)
+    private function isNotEditingOwnRoles(User $user)
     {
-        return Auth::id() != $userId;
+        return Auth::id() != $user->id;
     }
 
     /**
@@ -65,7 +66,7 @@ class KeepOwnAdminRole implements Rule
     }
 
     /**
-     * Id of Role named 'admin'.
+     * Get id of Role named 'admin'.
      *
      * @return mixed
      */
