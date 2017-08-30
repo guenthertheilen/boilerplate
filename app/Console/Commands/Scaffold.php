@@ -119,7 +119,7 @@ class Scaffold extends Command
             'user.update',
         ];
 
-        $admin = Role::whereName('admin')->first();
+        $admin = Role::where('name', 'admin')->first();
 
         foreach ($adminPermissions as $adminPermission) {
             $admin->attachPermission($adminPermission);
@@ -131,7 +131,7 @@ class Scaffold extends Command
      */
     private function attachUserPermissions()
     {
-        Role::whereName('user')->first()
+        Role::where('name', 'user')->first()
             ->attachPermission('home');
     }
 }

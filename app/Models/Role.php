@@ -51,7 +51,7 @@ class Role extends Model
     public function attachPermission($permission)
     {
         if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->first();
+            $permission = Permission::where('name', $permission)->first();
         }
 
         if (!$this->hasPermission($permission)) {

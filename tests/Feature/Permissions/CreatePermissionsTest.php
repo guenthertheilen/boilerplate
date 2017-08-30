@@ -42,6 +42,6 @@ class CreatePermissionsTest extends TestCase
         $this->post(route('permission.store'), ['name' => 'foo']);
 
         $this->assertCount(1, Permission::all());
-        $this->assertEquals($permission->id, Permission::whereName('foo')->pluck('id')->first());
+        $this->assertEquals($permission->id, Permission::where('name', 'foo')->pluck('id')->first());
     }
 }

@@ -14,7 +14,7 @@ class UserActivationController extends Controller
      */
     public function update($token)
     {
-        $user = User::whereActivationToken($token)->firstOrFail();
+        $user = User::where('activation_token', $token)->firstOrFail();
 
         if ($user->hasNoPassword()) {
             return redirect(route('password.create', $token));

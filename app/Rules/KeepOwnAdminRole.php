@@ -72,6 +72,6 @@ class KeepOwnAdminRole implements Rule
      */
     private function adminRoleId()
     {
-        return Role::whereName('admin')->pluck('id')->first();
+        return Role::where('name', 'admin')->pluck('id')->first();
     }
 }
