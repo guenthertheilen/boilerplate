@@ -5,7 +5,6 @@ namespace Tests\Feature\Authorization;
 use App\Models\User;
 use App\Services\Authorizer;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ScaffoldAuthorizationTest extends TestCase
@@ -25,14 +24,8 @@ class ScaffoldAuthorizationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => config('scaffold.admin_name'),
             'email' => config('scaffold.admin_email'),
-            'activation_token' => null,
-            'active' => 1
+            'active' => 0
         ]);
-
-        $this->assertTrue(Auth::validate([
-            'email' => config('scaffold.admin_email'),
-            'password' => config('scaffold.admin_password')
-        ]));
 
         $admin = User::whereName(config('scaffold.admin_name'))->first();
         $this->assertTrue($admin->hasRole('admin'));
