@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePermissionRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 
@@ -24,20 +25,21 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('permissions.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param CreatePermissionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePermissionRequest $request)
     {
         Permission::create($request->only(['name']));
 
-        return redirect(route('permission.index'));
+        return redirect(route('permission.index'))
+            ->with('flash-success', __('Permission was created.'));
     }
 
     /**

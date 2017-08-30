@@ -33,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateUseRequest $request
+     * @param  CreateUserRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateUserRequest $request)

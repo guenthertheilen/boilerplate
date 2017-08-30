@@ -1,7 +1,9 @@
 {
   "Add User": "Benutzer hinzufügen",
+  "Add Permission": "Recht hinzufügen",
   "Confirm Password": "Passwort bestätigen",
   "Create User": "Benutzer anlegen",
+  "Create Permission": "Recht anlegen",
   "E-Mail Address": "E-Mail",
   "Forgot Your Password?": "Passwort vergessen?",
   "Login": "Anmelden",
@@ -9,6 +11,7 @@
   "Name": "Name",
   "Password": "Passwort",
   "Permission": "Recht",
+  "Permission was created.": "Recht wurde angelegt.",
   "Permissions": "Rechte",
   "Register": "Registrieren",
   "Registration successful": "Registrierung erfolgreich",
