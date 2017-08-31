@@ -3,7 +3,6 @@
 namespace Tests;
 
 use App\Models\User;
-use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Facades\Mail;
@@ -37,12 +36,7 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function driver()
     {
-        // TODO: Check if we really have to do this. Or is there a way to run headless by default?
-        $capabilities = DesiredCapabilities::chrome();
-        $chromeOptions = (new ChromeOptions)->addArguments(['headless', 'disable-gpu']);
-        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-
-        return RemoteWebDriver::create('http://localhost:9515', $capabilities);
+        return RemoteWebDriver::create('http://localhost:9515', DesiredCapabilities::chrome());
     }
 
     /**
@@ -52,6 +46,6 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function admin()
     {
-        return User::whereName(config('scaffold.admin_name'))->first();
+        return User::where('name', config('scaffold.admin_name'))->first();
     }
 }
