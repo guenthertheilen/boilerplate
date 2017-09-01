@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class AttachDefaultRoleToUserTest extends TestCase
 {
-
     /** @test */
     function attach_default_role_to_user()
     {

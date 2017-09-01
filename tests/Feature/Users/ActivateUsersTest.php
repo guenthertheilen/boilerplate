@@ -3,14 +3,11 @@
 namespace Tests\Feature\Users;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class ActivateUsersTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function activate_user()
     {

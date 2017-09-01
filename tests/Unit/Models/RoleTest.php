@@ -4,13 +4,10 @@ namespace Tests\Unit\Models;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class RoleTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function attach_permission_to_role()
     {

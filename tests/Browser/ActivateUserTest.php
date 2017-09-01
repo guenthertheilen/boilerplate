@@ -10,6 +10,8 @@ use Tests\DuskTestCase;
 
 class ActivateUserTest extends DuskTestCase
 {
+    // TODO: Figure out a way to replace DatabaseMigration with RefreshDatabase.
+    // This only seems to work with in-memory databases, which do not seem to work with Dusk.
     use DatabaseMigrations;
 
     /** @test */

@@ -4,13 +4,10 @@ namespace Tests\Feature\Authorization;
 
 use App\Models\User;
 use App\Services\Authorizer;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class ScaffoldAuthorizationTest extends TestCase
 {
-    use DatabaseMigrations;
-
     function setUp()
     {
         parent::setUp();

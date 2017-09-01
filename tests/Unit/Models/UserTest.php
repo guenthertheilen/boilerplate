@@ -5,14 +5,11 @@ namespace Tests\Unit\Models;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function attach_role_to_user()
     {

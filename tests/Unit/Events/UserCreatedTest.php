@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 class UserCreatedTest extends TestCase
 {
-
     /** @test */
     function call_listeners()
     {

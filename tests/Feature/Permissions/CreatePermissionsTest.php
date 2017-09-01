@@ -3,13 +3,12 @@
 namespace Tests\Feature\Permissions;
 
 use App\Models\Permission;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class CreatePermissionsTest extends TestCase
 {
-    use DatabaseMigrations, WithoutMiddleware;
+    use WithoutMiddleware;
 
     /** @test */
     function show_link_to_create_permission()

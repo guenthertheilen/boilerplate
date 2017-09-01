@@ -6,13 +6,10 @@ use App\Http\Middleware\Authorization;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class UpdateUsersTest extends TestCase
 {
-    use DatabaseMigrations;
-
     protected function setUp()
     {
         parent::setUp();

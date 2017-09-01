@@ -3,13 +3,12 @@
 namespace Tests\Feature\Roles;
 
 use App\Models\Role;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class CreateRolesTest extends TestCase
 {
-    use DatabaseMigrations, WithoutMiddleware;
+    use WithoutMiddleware;
 
     /** @test */
     function show_link_to_create_role()

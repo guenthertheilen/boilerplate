@@ -3,14 +3,13 @@
 namespace Tests\Feature\Users;
 
 use App\Events\UserCreated;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class CreateUsersTest extends TestCase
 {
-    use DatabaseMigrations, WithoutMiddleware;
+    use WithoutMiddleware;
 
     /** @test */
     function show_link_to_create_user()

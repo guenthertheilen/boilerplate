@@ -6,13 +6,10 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Authorizer;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class AuthorizeRequestsTest extends TestCase
 {
-    use DatabaseMigrations;
-
     private $permission;
     private $adminRole;
     private $user;

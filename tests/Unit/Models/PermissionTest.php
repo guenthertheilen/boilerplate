@@ -4,13 +4,10 @@ namespace Tests\Unit\Models;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class PermissionTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function get_attached_roles_in_alphabetical_order_as_comma_seperated_string()
     {

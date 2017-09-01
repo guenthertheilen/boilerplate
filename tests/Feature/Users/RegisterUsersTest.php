@@ -4,15 +4,12 @@ namespace Tests\Feature\Users;
 
 use App\Events\UserCreated;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class RegisterUsersTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     function register_new_user()
     {
