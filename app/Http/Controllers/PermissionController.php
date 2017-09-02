@@ -73,7 +73,10 @@ class PermissionController extends Controller
      */
     public function update(Request $request, Permission $permission)
     {
-        //
+        $permission->update($request->only(['name']));
+
+        return redirect(route('permission.index'))
+            ->with('flash-success', __('Permission was updated.'));
     }
 
     /**
