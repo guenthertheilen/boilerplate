@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class ActivateUserTest extends DuskTestCase
+class UserActivateTest extends DuskTestCase
 {
     // TODO: Figure out a way to replace DatabaseMigration with RefreshDatabase.
     // This only seems to work with in-memory databases, which do not seem to work with Dusk.

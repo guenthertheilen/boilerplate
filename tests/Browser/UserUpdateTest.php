@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class UpdateUserTest extends DuskTestCase
+class UserUpdateTest extends DuskTestCase
 {
     use DatabaseMigrations;
 

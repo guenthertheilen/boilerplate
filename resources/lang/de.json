@@ -2,10 +2,12 @@
   "Add User": "Benutzer hinzufügen",
   "Add Permission": "Recht hinzufügen",
   "Add Role": "Benutzergruppe hinzufügen",
+  "Confirm delete": "Löschen bestätigen",
   "Confirm Password": "Passwort bestätigen",
   "Create User": "Benutzer anlegen",
   "Create Permission": "Recht anlegen",
   "Create Role": "Benutzergruppe anlegen",
+  "Delete User": "Benutzer löschen",
   "E-Mail Address": "E-Mail",
   "Forgot Your Password?": "Passwort vergessen?",
   "Login": "Anmelden",
@@ -27,7 +29,8 @@
   "Please check your email for activation link.": "Sie erhalten von uns in Kürze eine E-Mail mit dem Link zur Aktivierung Ihres Zugangs.",
   "Update User": "Benutzer bearbeiten",
   "User was created.": "Benutzer wurde angelegt.",
+  "User was deleted.": "Benutzer wurde gelöscht.",
   "User was updated.": "Benutzer wurde aktualisiert.",
   "Users": "Benutzer",
-  "Your account was activated. Please log in now.":  "Ihr Konto wurde aktiviert. Bitte melden Sie sich mit Ihren Benutzerdaten an."
+  "Your account was activated. Please log in now.": "Ihr Konto wurde aktiviert. Bitte melden Sie sich mit Ihren Benutzerdaten an."
 }

@@ -64,4 +64,24 @@
             </div>
         </form>
     </div>
+    <div class="column is-6 is-offset-3 pass">
+        <h3 class="subtitle">@lang('Delete User')</h3>
+        <form method="POST" action="{{ route('user.destroy', $user->id) }}">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="confirm-delete" id="confirm-delete" value="1">
+                    @lang('Confirm delete')
+                </label>
+            </div>
+
+            <div class="field is-pulled-right">
+                <div class="control">
+                    <button class="button is-danger">@lang('Delete User')</button>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection
