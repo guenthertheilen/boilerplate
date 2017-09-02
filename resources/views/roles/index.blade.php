@@ -17,7 +17,7 @@
             <tr>
                 <td>{{ $role->name }}</td>
                 <td>
-                    <a href="{{ route('role.edit', $role->id) }}">
+                    <a href="{{ route('role.edit', $role->id) }}" id="role-edit-{{ $role->id }}">
                             <span class="icon is-small">
                                 <i class="fa fa-pencil"></i>
                             </span>
